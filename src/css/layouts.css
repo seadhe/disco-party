@@ -52,7 +52,7 @@
 
 /* Image Discoball Glow & Float Styling */
 .hero-discoball-container {
-    margin: 0 auto 2.2rem auto;
+    margin: 0 auto 2.5rem auto;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -61,17 +61,17 @@
 }
 
 .hero-discoball-img {
-    width: 150px;
+    width: 195px; /* 1.3x larger */
     height: auto;
     display: block;
-    filter: drop-shadow(0 0 25px rgba(255, 92, 176, 0.45)) drop-shadow(0 0 50px rgba(108, 245, 245, 0.3));
+    filter: drop-shadow(0 0 35px rgba(255, 92, 176, 0.65)) drop-shadow(0 0 70px rgba(108, 245, 245, 0.45));
     animation: slowSpin 35s linear infinite;
     transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.4s;
 }
 
 .hero-discoball-container:hover .hero-discoball-img {
     transform: scale(1.08);
-    filter: drop-shadow(0 0 35px rgba(255, 92, 176, 0.7)) drop-shadow(0 0 70px rgba(108, 245, 245, 0.55));
+    filter: drop-shadow(0 0 45px rgba(255, 92, 176, 0.85)) drop-shadow(0 0 90px rgba(108, 245, 245, 0.7));
 }
 
 @keyframes slowSpin {
@@ -95,16 +95,16 @@
 
 .hero-logo-img {
     width: 100%;
-    max-width: 500px;
+    max-width: 750px; /* 1.5x larger */
     height: auto;
     display: block;
     filter: drop-shadow(0 8px 40px rgba(0,0,0,.6));
     will-change: transform;
 }
 
-@media (max-width: 380px) {
+@media (max-width: 768px) {
     .hero-logo-img {
-        max-width: calc(100% - 32px); /* respect side padding and prevent edge touching */
+        max-width: calc(100% - 32px); /* respect side padding on tablet/mobile */
     }
 }
 
@@ -123,7 +123,7 @@
     line-height: 1.5 !important;
     color: var(--paper) !important;
     margin-top: 1.4rem;
-    max-width: 520px;
+    max-width: 580px; /* slightly wider to balance layout */
     margin-left: auto;
     margin-right: auto;
 }
@@ -138,6 +138,24 @@
     font-size: 11px !important;
     font-weight: 700 !important;
     color: var(--text-dim) !important;
+}
+
+/* Shimmer color-cycling text animation */
+.shimmer-text {
+    font-weight: 700;
+    display: inline-block;
+    background: linear-gradient(90deg, var(--cyan-hot), var(--magenta-hot), var(--amber-hot), var(--lime), var(--cyan-hot));
+    background-size: 400% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: textShine 6s linear infinite;
+    text-shadow: 0 0 10px rgba(31, 230, 230, 0.1);
+}
+
+@keyframes textShine {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 400% 50%; }
 }
 
 .hero-meta {
