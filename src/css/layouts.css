@@ -84,7 +84,7 @@
     50% { transform: translateY(-8px); }
 }
 
-/* Hero Logo Styling */
+/* Hero Logo & Glitch Styling */
 .hero-title {
     display: flex;
     justify-content: center;
@@ -93,21 +93,78 @@
     width: 100%;
 }
 
-.hero-logo-img {
+.glitch-logo-wrapper {
+    position: relative;
     width: 100%;
-    max-width: 750px; /* 1.5x larger */
-    height: auto;
-    display: block;
-    will-change: transform;
-    transition: transform 0.4s ease;
+    max-width: 750px;
+    margin: 0 auto;
+    cursor: pointer;
 }
 
-.hero-logo-img:hover {
-    transform: scale(1.02);
+.hero-logo-img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.hero-logo-img.main-logo {
+    position: relative;
+    z-index: 3;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-logo-img.logo-glitch {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    opacity: 0;
+    mix-blend-mode: screen;
+    pointer-events: none;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.hero-logo-img.rgb-red {
+    filter: drop-shadow(0 0 1px #ff1f8f) matrix(1, 0, 0, 1, -2, 0); /* shift magenta/red left */
+}
+
+.hero-logo-img.rgb-cyan {
+    filter: drop-shadow(0 0 1px #1fe6e6) matrix(1, 0, 0, 1, 2, 0); /* shift cyan right */
+}
+
+/* Glitch Hover animations */
+.glitch-logo-wrapper:hover .hero-logo-img.main-logo {
+    transform: scale(1.03);
+}
+
+.glitch-logo-wrapper:hover .hero-logo-img.logo-glitch {
+    opacity: 0.85;
+}
+
+.glitch-logo-wrapper:hover .hero-logo-img.rgb-red {
+    transform: scale(1.03) translate3d(-3px, -1px, 0);
+    animation: jitterRed 0.2s infinite steps(2);
+}
+
+.glitch-logo-wrapper:hover .hero-logo-img.rgb-cyan {
+    transform: scale(1.03) translate3d(3px, 1px, 0);
+    animation: jitterCyan 0.2s infinite steps(2);
+}
+
+@keyframes jitterRed {
+    0%, 100% { transform: scale(1.03) translate3d(-2px, -1px, 0); }
+    50% { transform: scale(1.03) translate3d(-5px, 1px, 0); }
+}
+
+@keyframes jitterCyan {
+    0%, 100% { transform: scale(1.03) translate3d(2px, 1px, 0); }
+    50% { transform: scale(1.03) translate3d(5px, -1px, 0); }
 }
 
 @media (max-width: 768px) {
-    .hero-logo-img {
+    .glitch-logo-wrapper {
         max-width: calc(100% - 32px); /* respect side padding on tablet/mobile */
     }
 }
