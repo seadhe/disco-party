@@ -41,6 +41,15 @@
     <!-- Main Content Layout overlay -->
     <div id="app-container">
         
+        <!-- SVG Mask for glassy sheen effect -->
+        <svg width="0" height="0" style="position: absolute; width: 0; height: 0; overflow: hidden;" aria-hidden="true">
+            <defs>
+                <mask id="logo-mask" maskUnits="objectBoundingBox" maskContentUnits="objectBoundingBox">
+                    <image href="assets/disco-party-logo.png" x="0" y="0" width="1" height="1" preserveAspectRatio="none" />
+                </mask>
+            </defs>
+        </svg>
+
         <!-- ============ FIXED ATMOSPHERIC HEADER ============ -->
         <header>
             <a href="#" class="logo hover-trigger" id="rcm-logo">
