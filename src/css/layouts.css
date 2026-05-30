@@ -37,6 +37,43 @@
     border-top: none; /* First block has no divider line */
 }
 
+/* Visually Hidden class for accessibility */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Hero Logo Styling */
+.hero-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem auto 1.5rem auto;
+    width: 100%;
+}
+
+.hero-logo-img {
+    width: 100%;
+    max-width: 440px;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 8px 40px rgba(0,0,0,.6));
+    will-change: transform;
+}
+
+@media (max-width: 380px) {
+    .hero-logo-img {
+        max-width: calc(100% - 32px); /* respect side padding and prevent edge touching */
+    }
+}
+
 .hero-meta {
     display: flex;
     gap: 2.8rem;
