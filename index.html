@@ -809,6 +809,31 @@
         </div>
     </div>
 
+    <!-- SVG Filters for high-end visual effects -->
+    <svg style="position: absolute; width: 0; height: 0; pointer-events: none;" aria-hidden="true">
+        <defs>
+            <filter id="chromatic-aberration">
+                <!-- Extract red channel -->
+                <feColorMatrix type="matrix" values="
+                    1 0 0 0 0
+                    0 0 0 0 0
+                    0 0 0 0 0
+                    0 0 0 1 0" in="SourceGraphic" result="red" />
+                <!-- Extract green and blue (cyan) channels -->
+                <feColorMatrix type="matrix" values="
+                    0 0 0 0 0
+                    0 1 0 0 0
+                    0 0 1 0 0
+                    0 0 0 1 0" in="SourceGraphic" result="cyan" />
+                <!-- Offset the channels slightly for the aberration effect -->
+                <feOffset dx="-3" dy="-1" in="red" result="red-offset" />
+                <feOffset dx="3" dy="1" in="cyan" result="cyan-offset" />
+                <!-- Merge the shifted channels together -->
+                <feBlend mode="screen" in="red-offset" in2="cyan-offset" />
+            </filter>
+        </defs>
+    </svg>
+
     <!-- Import Lenis Smooth Scroll via CDN Globally -->
     <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.36/dist/lenis.min.js"></script>
     
