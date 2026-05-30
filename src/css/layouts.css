@@ -93,88 +93,26 @@
     width: 100%;
 }
 
-.sheen-logo-wrapper {
-    position: relative;
+.hero-title .dossier-box {
     width: 100%;
     max-width: 750px;
     margin: 0 auto;
-    cursor: pointer;
-    overflow: hidden; /* clip the sweeping light beam */
-    border-radius: 4px;
+    border-top-width: 3px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 40%, rgba(0, 0, 0, 0.4) 80%, rgba(0, 0, 0, 0.7) 100%), var(--card-bg);
 }
 
 .hero-logo-img {
     width: 100%;
+    max-width: 100%;
     height: auto;
     display: block;
-}
-
-.hero-logo-img.main-logo {
-    position: relative;
-    z-index: 2;
-    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
-    filter: drop-shadow(0 8px 30px rgba(0,0,0,0.45));
-}
-
-/* Specular Glassy Bevel Highlight */
-.sheen-logo-wrapper::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: 3;
-    pointer-events: none;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0) 45%, rgba(0, 0, 0, 0.25) 100%);
-    mix-blend-mode: overlay;
-    -webkit-mask: url(#logo-mask);
-    mask: url(#logo-mask);
-    opacity: 0.8;
-    transition: opacity 0.5s ease;
-}
-
-/* Holographic Diagonal Light Sheen Beam */
-.sheen-logo-wrapper::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -60%;
-    width: 200%;
-    height: 200%;
-    z-index: 4;
-    pointer-events: none;
-    background: linear-gradient(
-        115deg,
-        transparent 35%,
-        rgba(31, 230, 230, 0.4) 43%,
-        rgba(255, 255, 255, 0.85) 48%,
-        rgba(255, 92, 176, 0.5) 53%,
-        transparent 65%
-    );
-    mix-blend-mode: color-dodge;
-    -webkit-mask: url(#logo-mask);
-    mask: url(#logo-mask);
-    transform: translateX(-35%) rotate(15deg);
-    opacity: 0;
-    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease;
-}
-
-/* Interactive Hover Reactions */
-.sheen-logo-wrapper:hover .hero-logo-img.main-logo {
-    transform: scale(1.03);
-    filter: brightness(1.06) contrast(1.03) drop-shadow(0 15px 45px rgba(0,0,0,0.6));
-}
-
-.sheen-logo-wrapper:hover::before {
-    opacity: 1;
-}
-
-.sheen-logo-wrapper:hover::after {
-    opacity: 1;
-    transform: translateX(35%) rotate(15deg);
+    filter: drop-shadow(0 6px 15px rgba(0,0,0,0.3));
 }
 
 @media (max-width: 768px) {
-    .sheen-logo-wrapper {
+    .hero-title .dossier-box {
         max-width: calc(100% - 32px); /* respect tablet/mobile paddings */
+        padding: 1.25rem 1.8rem !important;
     }
 }
 
