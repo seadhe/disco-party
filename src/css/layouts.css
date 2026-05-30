@@ -93,12 +93,20 @@
     width: 100%;
 }
 
-.hero-title .dossier-box {
+.hero-logo-tilt {
+    position: relative;
     width: 100%;
     max-width: 750px;
     margin: 0 auto;
-    border-top-width: 3px;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 40%, rgba(0, 0, 0, 0.4) 80%, rgba(0, 0, 0, 0.7) 100%), var(--card-bg);
+    cursor: pointer;
+    transform-style: preserve-3d;
+    will-change: transform;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
 }
 
 .hero-logo-img {
@@ -106,13 +114,17 @@
     max-width: 100%;
     height: auto;
     display: block;
-    filter: drop-shadow(0 6px 15px rgba(0,0,0,0.3));
+    filter: drop-shadow(0 8px 30px rgba(0, 0, 0, 0.45));
+    transition: filter 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.hero-logo-tilt:hover .hero-logo-img {
+    filter: drop-shadow(0 15px 40px rgba(255, 115, 0, 0.3)) drop-shadow(0 8px 25px rgba(0, 242, 254, 0.25));
 }
 
 @media (max-width: 768px) {
-    .hero-title .dossier-box {
+    .hero-logo-tilt {
         max-width: calc(100% - 32px); /* respect tablet/mobile paddings */
-        padding: 1.25rem 1.8rem !important;
     }
 }
 
