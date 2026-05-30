@@ -402,4 +402,66 @@ export function initUI(onPresetChange) {
     }, { threshold: 0.12 });
 
     document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+    // Boot the specialized scroll-triggered cards stack for the Thought Cabinet
+    initThoughtStack();
+}
+
+// 11. Specialized scroll-triggered cascade stack observer for Thought Cabinet cards
+function initThoughtStack() {
+    const cards = document.querySelectorAll('.thought-grid .arch');
+    if (!cards.length) return;
+
+    // Centralized prefers-reduced-motion check
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+        cards.forEach(card => {
+            card.classList.add('active');
+            card.style.opacity = '1';
+            card.style.transform = 'none';
+            card.style.filter = 'none';
+        });
+        return;
+    }
+
+    const observerOptions = {
+        root: null, // viewport
+        rootMargin: '-5% 0px -30% 0px', // focal zone bounds
+        threshold: [0, 0.2, 0.4, 0.6, 0.8, 1.0]
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const card = entry.target;
+            const rect = entry.boundingClientRect;
+            const viewHeight = window.innerHeight;
+            
+            if (entry.isIntersecting) {
+                const cardCenter = rect.top + rect.height / 2;
+                const focalCenter = viewHeight * 0.45; // focal zone center point
+
+                if (cardCenter < focalCenter - 60) {
+                    // Went up beyond focal zone -> passed (fades slightly & gets blurred)
+                    card.classList.remove('active');
+                    card.classList.add('passed');
+                } else {
+                    // Active central focal zone -> full color/focus
+                    card.classList.add('active');
+                    card.classList.remove('passed');
+                }
+            } else {
+                if (rect.top < 0) {
+                    // Offscreen above -> passed
+                    card.classList.remove('active');
+                    card.classList.add('passed');
+                } else {
+                    // Offscreen below -> reset to upcoming
+                    card.classList.remove('active');
+                    card.classList.remove('passed');
+                }
+            }
+        });
+    }, observerOptions);
+
+    cards.forEach(card => observer.observe(card));
 }

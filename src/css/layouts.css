@@ -306,12 +306,60 @@
     margin-top: 1.8rem;
 }
 
-/* Thought Cabinet & Revachol Bar Grid (3 columns) */
-.thought-grid, .bar-grid {
+/* Revachol Bar Grid (3 columns) */
+.bar-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1.25rem;
     margin-top: 1.8rem;
+}
+
+/* Thought Cabinet Scroll-Triggered Stack */
+.thought-grid {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    margin: 2.2rem auto 0 auto;
+    gap: 1.8rem;
+}
+
+/* Base state for scroll-triggered animation */
+.thought-grid .arch {
+    opacity: 0.15;
+    transform: translateY(24px);
+    filter: blur(2px);
+    transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), filter 0.5s ease;
+    will-change: opacity, transform, filter;
+}
+
+/* Active state when entering focal zone */
+.thought-grid .arch.active {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    filter: blur(0px) !important;
+}
+
+/* Passed state when scrolled up beyond focal zone */
+.thought-grid .arch.passed {
+    opacity: 0.45;
+    transform: translateY(0);
+    filter: blur(1.5px);
+}
+
+/* Custom Lime archetype color token */
+.arch.lime::before { background: var(--lime); }
+.arch.lime { border-top-color: var(--lime); }
+.arch.lime:hover { box-shadow: 0 12px 30px rgba(182, 255, 60, 0.18); border-color: rgba(182, 255, 60, 0.3); }
+.arch.lime .arch-name { color: var(--lime); }
+
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+    .thought-grid .arch {
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
+        transition: none !important;
+    }
 }
 
 .arch {
