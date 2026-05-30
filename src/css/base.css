@@ -2,7 +2,7 @@
    Base design system, custom typography tokens, and browser overrides
    ========================================================================= */
 
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Spectral:ital,wght@0,300;0,400;0,500;0,700;1,400&family=JetBrains+Mono:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;600;700&family=Spectral:ital,wght@0,300;0,400;0,500;0,700;1,400&family=JetBrains+Mono:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,700;1,400&display=swap');
 
 :root {
     /* Disco Elysium Palette */
@@ -238,12 +238,14 @@ h1, h2, h3, .logo-title, .arch-name, .tix-name, .tname, .footer-title, .modal-ti
     font-family: 'Oswald', sans-serif;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.01em;
+    line-height: 0.95;
 }
 
 .section-title {
-    font-size: clamp(3.2rem, 8.5vw, 5.5rem);
-    line-height: 0.95;
+    font-size: clamp(3.5rem, 10vw, 6.2rem);
+    line-height: 0.92;
+    letter-spacing: 0.01em;
     color: var(--paper);
     margin-bottom: 2rem;
     text-shadow: 0 4px 15px rgba(0,0,0,0.4);

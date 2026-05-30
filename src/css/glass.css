@@ -245,7 +245,8 @@
 }
 
 .real-bill .val {
-    font-family: 'Oswald', sans-serif;
+    font-family: 'JetBrains Mono', monospace;
+    font-variant-numeric: tabular-nums;
     font-weight: 700;
     font-size: 2.1rem;
     line-height: 1;
