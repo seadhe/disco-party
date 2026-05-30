@@ -50,18 +50,52 @@
     border: 0;
 }
 
+/* Image Discoball Glow & Float Styling */
+.hero-discoball-container {
+    margin: 0 auto 2.2rem auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    animation: floatBall 5s ease-in-out infinite;
+}
+
+.hero-discoball-img {
+    width: 150px;
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 0 25px rgba(255, 92, 176, 0.45)) drop-shadow(0 0 50px rgba(108, 245, 245, 0.3));
+    animation: slowSpin 35s linear infinite;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.4s;
+}
+
+.hero-discoball-container:hover .hero-discoball-img {
+    transform: scale(1.08);
+    filter: drop-shadow(0 0 35px rgba(255, 92, 176, 0.7)) drop-shadow(0 0 70px rgba(108, 245, 245, 0.55));
+}
+
+@keyframes slowSpin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes floatBall {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
 /* Hero Logo Styling */
 .hero-title {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 1rem auto 1.5rem auto;
+    margin: 1.2rem auto 1.8rem auto;
     width: 100%;
 }
 
 .hero-logo-img {
     width: 100%;
-    max-width: 440px;
+    max-width: 500px;
     height: auto;
     display: block;
     filter: drop-shadow(0 8px 40px rgba(0,0,0,.6));
@@ -72,6 +106,38 @@
     .hero-logo-img {
         max-width: calc(100% - 32px); /* respect side padding and prevent edge touching */
     }
+}
+
+/* Typography scale enhancements for Hero block */
+.hero-eyebrow {
+    font-size: 13px !important;
+    letter-spacing: 0.45em !important;
+    font-weight: 800 !important;
+    color: var(--cyan-hot) !important;
+    margin-bottom: 1.2rem;
+}
+
+.hero-sub {
+    font-size: 1.7rem !important;
+    font-weight: 600 !important;
+    line-height: 1.5 !important;
+    color: var(--paper) !important;
+    margin-top: 1.4rem;
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-meta-item .v {
+    font-size: 1.55rem !important;
+    font-weight: 800 !important;
+    color: var(--paper) !important;
+}
+
+.hero-meta-item .l {
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    color: var(--text-dim) !important;
 }
 
 .hero-meta {
