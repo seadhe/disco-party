@@ -1,0 +1,195 @@
+/* =========================================================================
+   RCM Request Checkout Form overlays and Intrusive Skill Dialogue
+   Toaster custom card components
+   ========================================================================= */
+
+/* RCM Request Checkout Popup Form Overlay */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(4, 2, 6, 0.88);
+    z-index: 10000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.modal-overlay.active { 
+    display: flex; 
+}
+
+.modal {
+    background: linear-gradient(160deg, var(--void-2), var(--void));
+    border: 1px solid var(--card-border-hover);
+    border-radius: 0px; /* strict rect */
+    width: 100%;
+    max-width: 380px;
+    padding: 2.2rem;
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.6), 0 0 40px rgba(255, 31, 143, 0.25);
+    animation: modalIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalIn {
+    from { opacity: 0; transform: scale(0.95) translateY(15px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1.2rem;
+    background: transparent;
+    border: none;
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.45rem;
+    color: var(--text-dim);
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.modal-close:hover { 
+    color: #fff; 
+}
+
+.modal-title {
+    font-size: 2.2rem;
+    color: var(--paper);
+    line-height: 1;
+    margin-bottom: 4px;
+}
+
+.modal-sub {
+    font-size: 0.85rem;
+    color: var(--amber-hot);
+    margin-bottom: 1.5rem;
+}
+
+.fg { 
+    margin-bottom: 1.1rem; 
+}
+
+.fl {
+    margin-bottom: 6px;
+    display: block;
+}
+
+.fi, .ft {
+    width: 100%;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 0px; /* strict rect */
+    padding: 10px 12px;
+    color: var(--paper);
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.fi:focus, .ft:focus { 
+    border-color: var(--magenta-hot); 
+}
+
+.ft { 
+    min-height: 60px; 
+    resize: vertical; 
+}
+
+.modal-submit {
+    width: 100%;
+    margin-top: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    background: linear-gradient(135deg, var(--magenta-hot), var(--amber-hot));
+    color: var(--ink);
+    border: none;
+    border-radius: 0px; /* strict rect */
+    padding: 12px;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(255,31,143,0.3);
+    transition: transform 0.2s, filter 0.2s;
+}
+
+.modal-submit:active { 
+    transform: scale(0.98); 
+}
+
+.modal-submit:hover { 
+    filter: brightness(1.1); 
+}
+
+.modal-note {
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    margin-top: 1rem;
+    text-align: center;
+    line-height: 1.4;
+}
+
+/* =========================================================================
+   Intrusive Skill Dialogue Toaster Panels
+   ========================================================================= */
+
+#dialogue-toaster {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 10000;
+    width: 340px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    pointer-events: none;
+}
+
+.skill-toast {
+    background: rgba(8, 4, 15, 0.92);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    padding: 1.2rem;
+    color: var(--paper);
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255,255,255,0.1);
+    transform: translateX(120%);
+    opacity: 0;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s;
+    position: relative;
+    pointer-events: auto;
+}
+
+.skill-toast.show {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.skill-toast.hide {
+    transform: translateX(120%);
+    opacity: 0;
+}
+
+.skill-toast-header {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+}
+
+.skill-toast-text {
+    font-family: 'Spectral', serif;
+    font-size: 0.92rem;
+    line-height: 1.45;
+    color: var(--paper-dim);
+}
