@@ -826,8 +826,8 @@
                     0 0 1 0 0
                     0 0 0 1 0" in="SourceGraphic" result="cyan" />
                 <!-- Offset the channels slightly for the aberration effect -->
-                <feOffset dx="-3" dy="-1" in="red" result="red-offset" />
-                <feOffset dx="3" dy="1" in="cyan" result="cyan-offset" />
+                <feOffset dx="-1.2" dy="-0.4" in="red" result="red-offset" />
+                <feOffset dx="1.2" dy="0.4" in="cyan" result="cyan-offset" />
                 <!-- Merge the shifted channels together -->
                 <feBlend mode="screen" in="red-offset" in2="cyan-offset" />
             </filter>

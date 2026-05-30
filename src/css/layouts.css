@@ -118,7 +118,7 @@
     transition: filter 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-.hero-logo-tilt:hover .hero-logo-img {
+.hero-logo-img.aberration-active {
     filter: url(#chromatic-aberration) drop-shadow(0 8px 30px rgba(0, 0, 0, 0.45));
 }
 

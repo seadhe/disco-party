@@ -33,12 +33,39 @@ function setupTilt(el, isLogo = false) {
         targetRotY = ((x - width / 2) / width) * maxAngle;
     });
 
-    el.addEventListener('mouseleave', () => {
-        targetRotX = 0;
-        targetRotY = 0;
-        el.style.setProperty('--mouse-x', '0px');
-        el.style.setProperty('--mouse-y', '0px');
-    });
+    if (isLogo) {
+        let glitchTimeout = null;
+        el.addEventListener('mouseenter', () => {
+            const img = el.querySelector('.hero-logo-img');
+            if (img) {
+                if (glitchTimeout) clearTimeout(glitchTimeout);
+                img.classList.add('aberration-active');
+                glitchTimeout = setTimeout(() => {
+                    img.classList.remove('aberration-active');
+                }, 500);
+            }
+        });
+
+        el.addEventListener('mouseleave', () => {
+            targetRotX = 0;
+            targetRotY = 0;
+            el.style.setProperty('--mouse-x', '0px');
+            el.style.setProperty('--mouse-y', '0px');
+            
+            const img = el.querySelector('.hero-logo-img');
+            if (img) {
+                if (glitchTimeout) clearTimeout(glitchTimeout);
+                img.classList.remove('aberration-active');
+            }
+        });
+    } else {
+        el.addEventListener('mouseleave', () => {
+            targetRotX = 0;
+            targetRotY = 0;
+            el.style.setProperty('--mouse-x', '0px');
+            el.style.setProperty('--mouse-y', '0px');
+        });
+    }
 
     function animateTilt() {
         rotX += (targetRotX - rotX) * 0.12;
