@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <linearGradient id="neonGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff1f8f" />
+      <stop offset="100%" stop-color="#1fe6e6" />
+    </linearGradient>
+  </defs>
+  <!-- Background circle/square -->
+  <rect width="32" height="32" rx="6" fill="#08000f" />
+  <!-- Corner ticks -->
+  <path d="M 4 8 L 4 4 L 8 4" stroke="#ff1f8f" stroke-width="1.5" fill="none" opacity="0.9" />
+  <path d="M 28 24 L 28 28 L 24 28" stroke="#1fe6e6" stroke-width="1.5" fill="none" opacity="0.9" />
+  <!-- RCM Star -->
+  <path d="M 16 6 L 19 12 L 26 13 L 21 18 L 22 25 L 16 21 L 10 25 L 11 18 L 6 13 L 13 12 Z" fill="url(#neonGrad)" />
+</svg>

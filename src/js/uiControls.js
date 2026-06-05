@@ -198,71 +198,34 @@ export function initUI(onPresetChange) {
         }
     });
 
-    document.querySelectorAll('.tcard').forEach(card => {
-        const subEl = card.querySelector('.tsub');
-        if (subEl) {
-            card.dataset.sub = subEl.textContent;
-            subEl.style.visibility = 'hidden';
-            cardTypewriterObserver.observe(card);
-        }
+    // Evidence Card mobile tap / keyboard reveal toggle
+    document.querySelectorAll('.evidence-card').forEach(card => {
+        card.addEventListener('click', () => {
+            document.querySelectorAll('.evidence-card').forEach(c => {
+                if (c !== card) c.classList.remove('open');
+            });
+            card.classList.toggle('open');
+        });
+        card.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                document.querySelectorAll('.evidence-card').forEach(c => {
+                    if (c !== card) c.classList.remove('open');
+                });
+                card.classList.toggle('open');
+            }
+        });
     });
 
     // 5. Custom Cursor hover expand swell events attachment
-    const hoverTriggers = document.querySelectorAll('.hover-trigger, .arch, .tcard, .tix, .dossier-box, .prog-stat, button, a, input, textarea');
+    const hoverTriggers = document.querySelectorAll('.hover-trigger, .arch, .evidence-card, .tix, .dossier-box, .prog-stat, button, a, input, textarea');
     hoverTriggers.forEach(trigger => {
         trigger.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
         trigger.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
     });
 
-    // 6. Dialogue Toaster programmatically built container setup
-    toasterContainer = document.createElement('div');
-    toasterContainer.id = 'dialogue-toaster';
-    document.body.appendChild(toasterContainer);
-
-    function showSkillToast(voice) {
-        if (!toasterContainer) return;
-
-        const toast = document.createElement('div');
-        toast.className = 'skill-toast';
-        toast.style.borderLeft = `3px solid ${voice.color}`;
-        
-        const header = document.createElement('div');
-        header.className = 'skill-toast-header';
-        header.style.color = voice.color;
-        header.textContent = `◆ ${voice.skill} [Низкое]`;
-        
-        const textEl = document.createElement('div');
-        textEl.className = 'skill-toast-text';
-        
-        toast.appendChild(header);
-        toast.appendChild(textEl);
-        toasterContainer.appendChild(toast);
-
-        // Force reflow
-        toast.getBoundingClientRect();
-        toast.classList.add('show');
-
-        let text = voice.text;
-        let i = 0;
-        const timer = setInterval(() => {
-            if (i < text.length) {
-                textEl.textContent += text.charAt(i);
-                i++;
-            } else {
-                clearInterval(timer);
-            }
-        }, 18);
-
-        setTimeout(() => {
-            toast.classList.remove('show');
-            toast.classList.add('hide');
-            setTimeout(() => {
-                toast.remove();
-            }, 500);
-        }, 6500);
-    }
-
-    // 7. Scroll Presets Transitions & Intrusive Skill Toasts Observers
+    // 6. Dialogue Toaster (Disabled by request)
+    // 7. Scroll Presets Transitions Observers
     const scrollObserver = new IntersectionObserver((entries) => {
         entries.forEach(e => {
             if (e.isIntersecting) {
@@ -273,6 +236,8 @@ export function initUI(onPresetChange) {
                     onPresetChange('disco');
                 } else if (id === 'concept' || id === 'thoughts' || id === 'brief') {
                     onPresetChange('cyberpunk');
+                } else if (id === 'manifesto') {
+                    onPresetChange('obsidian');
                 } else if (id === 'dress' || id === 'bar' || id === 'reals') {
                     onPresetChange('obsidian');
                 } else if (id === 'budget' || id === 'progress') {
@@ -281,11 +246,7 @@ export function initUI(onPresetChange) {
                     onPresetChange('disco');
                 }
 
-                // Show right aligned Intrusive dialogue alerts
-                if (skillVoices[id] && !e.target.dataset.voiceTriggered) {
-                    e.target.dataset.voiceTriggered = "true";
-                    showSkillToast(skillVoices[id]);
-                }
+
             }
         });
     }, {
@@ -300,12 +261,19 @@ export function initUI(onPresetChange) {
     // 8. Hanging glass disco ball mouse shine coordinate calculations
     const discoStage = document.querySelector('.discoball-stage');
     if (discoStage) {
+        let discoTicking = false;
         discoStage.addEventListener('mousemove', (e) => {
-            const rect = discoStage.getBoundingClientRect();
-            const x = ((e.clientX - rect.left) / rect.width) * 100;
-            const y = ((e.clientY - rect.top) / rect.height) * 100;
-            document.querySelector('.discoball').style.setProperty('--ball-mouse-x', `${x}%`);
-            document.querySelector('.discoball').style.setProperty('--ball-mouse-y', `${y}%`);
+            if (!discoTicking) {
+                requestAnimationFrame(() => {
+                    const rect = discoStage.getBoundingClientRect();
+                    const x = ((e.clientX - rect.left) / rect.width) * 100;
+                    const y = ((e.clientY - rect.top) / rect.height) * 100;
+                    document.querySelector('.discoball').style.setProperty('--ball-mouse-x', `${x}%`);
+                    document.querySelector('.discoball').style.setProperty('--ball-mouse-y', `${y}%`);
+                    discoTicking = false;
+                });
+                discoTicking = true;
+            }
         });
         discoStage.addEventListener('mouseleave', () => {
             document.querySelector('.discoball').style.setProperty('--ball-mouse-x', `30%`);
@@ -346,13 +314,14 @@ export function initUI(onPresetChange) {
     }
 
     // Bind checkout popups to buttons (removing inline onclick attributes)
-    document.querySelectorAll('.tix-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-            const name = btn.dataset.name;
-            const price = btn.dataset.price;
-            openTix(name, price);
-        });
-    });
+    // Disabled: tix-btn are now direct Telegram contact links.
+    // document.querySelectorAll('.tix-btn').forEach(btn => {
+    //     btn.addEventListener('click', () => {
+    //         const name = btn.dataset.name;
+    //         const price = btn.dataset.price;
+    //         openTix(name, price);
+    //     });
+    // });
 
     // Close button click
     const closeBtn = document.querySelector('.modal-close');
@@ -405,63 +374,197 @@ export function initUI(onPresetChange) {
 
     // Boot the specialized scroll-triggered cards stack for the Thought Cabinet
     initThoughtStack();
+
+    // Boot the manifesto scroll-triggered reveal
+    initManifesto();
 }
 
-// 11. Specialized scroll-triggered cascade stack observer for Thought Cabinet cards
+// 11. Specialized scroll-reveal list-dossier observer for Thought Cabinet
 function initThoughtStack() {
-    const cards = document.querySelectorAll('.thought-grid .arch');
-    if (!cards.length) return;
+    const listContainer = document.querySelector('.thought-list');
+    const voices = document.querySelectorAll('.thought-list .voice');
+    if (!listContainer || !voices.length) return;
 
-    // Centralized prefers-reduced-motion check
+    // Check prefers-reduced-motion first
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    
     if (prefersReducedMotion) {
-        cards.forEach(card => {
-            card.classList.add('active');
-            card.style.opacity = '1';
-            card.style.transform = 'none';
-            card.style.filter = 'none';
-        });
-        return;
+        // Fallback: immediately show all voices statically
+        voices.forEach(voice => voice.classList.add('is-visible'));
+    } else {
+        // Synchronously activate JS reveal styles by adding .js-on class immediately
+        listContainer.classList.add('js-on');
+
+        const observerOptions = {
+            root: null, // Viewport
+            rootMargin: '0px 0px -10% 0px', // Trigger slightly before the bottom of screen
+            threshold: 0.25 // Row must be 25% visible
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    // One-shot animation: unobserve to prevent repeated transitions
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        voices.forEach(voice => observer.observe(voice));
     }
+}
 
-    const observerOptions = {
-        root: null, // viewport
-        rootMargin: '-5% 0px -30% 0px', // focal zone bounds
-        threshold: [0, 0.2, 0.4, 0.6, 0.8, 1.0]
-    };
+// 12. Specialized particle drift engine for the Manifesto card
+function initManifesto() {
+    const canvas = document.getElementById('manifesto-card-particles');
+    if (!canvas) return;
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            const card = entry.target;
-            const rect = entry.boundingClientRect;
-            const viewHeight = window.innerHeight;
-            
-            if (entry.isIntersecting) {
-                const cardCenter = rect.top + rect.height / 2;
-                const focalCenter = viewHeight * 0.45; // focal zone center point
+    const ctx = canvas.getContext('2d');
+    const card = canvas.closest('.manifesto-card');
+    if (!card) return;
 
-                if (cardCenter < focalCenter - 60) {
-                    // Went up beyond focal zone -> passed (fades slightly & gets blurred)
-                    card.classList.remove('active');
-                    card.classList.add('passed');
-                } else {
-                    // Active central focal zone -> full color/focus
-                    card.classList.add('active');
-                    card.classList.remove('passed');
-                }
+    // Check prefers-reduced-motion
+    let prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    // Listen to media query changes dynamically
+    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (motionQuery.addEventListener) {
+        motionQuery.addEventListener('change', (e) => {
+            prefersReducedMotion = e.matches;
+            if (prefersReducedMotion) {
+                draw();
             } else {
-                if (rect.top < 0) {
-                    // Offscreen above -> passed
-                    card.classList.remove('active');
-                    card.classList.add('passed');
-                } else {
-                    // Offscreen below -> reset to upcoming
-                    card.classList.remove('active');
-                    card.classList.remove('passed');
-                }
+                tick();
             }
         });
-    }, observerOptions);
+    }
 
-    cards.forEach(card => observer.observe(card));
+    const particles = [];
+    const particleCount = 95; // Deep volumetric layer of 95 sparks drifting over the aurora
+
+    const colors = [
+        'rgba(31, 230, 230, ',   // cyan
+        'rgba(155, 60, 255, ',  // violet
+        'rgba(255, 31, 143, ',  // magenta
+        'rgba(244, 236, 220, '   // paper
+    ];
+
+    // Pre-render glowing particle textures to offscreen canvases for extreme performance
+    const particleTextures = colors.map(colorPrefix => {
+        const pCanvas = document.createElement('canvas');
+        const pCtx = pCanvas.getContext('2d');
+        const size = 32; // 32x32 texture for smooth glow
+        pCanvas.width = size;
+        pCanvas.height = size;
+        
+        const center = size / 2;
+        const grad = pCtx.createRadialGradient(center, center, 0, center, center, center);
+        grad.addColorStop(0, colorPrefix + '1.0)');   // solid core
+        grad.addColorStop(0.15, colorPrefix + '0.8)'); // bright inner glow
+        grad.addColorStop(0.4, colorPrefix + '0.3)');  // soft outer glow
+        grad.addColorStop(1, colorPrefix + '0.0)');    // transparent edge
+        
+        pCtx.fillStyle = grad;
+        pCtx.fillRect(0, 0, size, size);
+        return pCanvas;
+    });
+
+    function resizeCanvas() {
+        canvas.width = card.clientWidth;
+        canvas.height = card.clientHeight;
+
+        // Re-distribute particles if they are out of the new bounds
+        for (let i = 0; i < particles.length; i++) {
+            const p = particles[i];
+            if (p.x > canvas.width) p.x = Math.random() * canvas.width;
+            if (p.y > canvas.height) p.y = Math.random() * canvas.height;
+        }
+
+        if (prefersReducedMotion) {
+            draw();
+        }
+    }
+
+    // Initialize particles
+    function initParticles() {
+        particles.length = 0;
+        const width = card.clientWidth || 800;
+        const height = card.clientHeight || 400;
+        
+        for (let i = 0; i < particleCount; i++) {
+            const z = Math.random(); // 0 (near, fast, bright) to 1 (far, slow, dim)
+            const tex = particleTextures[Math.floor(Math.random() * particleTextures.length)];
+            particles.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                z: z,
+                r: (1 - z) * 1.5 + 0.5, // radius from 0.5px to 2.0px
+                texture: tex,
+                opacity: (1 - z) * 0.32 + 0.08, // opacities from 0.08 to 0.40
+                vx: (Math.random() - 0.5) * 0.08,
+                vy: -0.12 * (1 - z) - 0.04 // moves slowly upwards
+            });
+        }
+    }
+
+    function resetParticle(p) {
+        p.x = Math.random() * canvas.width;
+        p.y = canvas.height + 5;
+        p.z = Math.random();
+        p.r = (1 - p.z) * 1.5 + 0.5;
+        p.opacity = (1 - p.z) * 0.32 + 0.08;
+        p.vx = (Math.random() - 0.5) * 0.08;
+        p.vy = -0.12 * (1 - p.z) - 0.04;
+        p.texture = particleTextures[Math.floor(Math.random() * particleTextures.length)];
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        for (let i = 0; i < particles.length; i++) {
+            const p = particles[i];
+            ctx.globalAlpha = p.opacity;
+            
+            // Draw pre-rendered glow texture (scaled by particle size)
+            const renderSize = p.r * 6; // glow is 6x larger than the core radius
+            ctx.drawImage(p.texture, p.x - renderSize / 2, p.y - renderSize / 2, renderSize, renderSize);
+        }
+        ctx.globalAlpha = 1.0;
+    }
+
+    let animationId = null;
+    function tick() {
+        if (prefersReducedMotion) {
+            draw();
+            return;
+        }
+
+        // Update particle positions
+        for (let i = 0; i < particles.length; i++) {
+            const p = particles[i];
+            p.x += p.vx;
+            p.y += p.vy;
+
+            // If it goes off-screen
+            if (p.y < -10 || p.x < -10 || p.x > canvas.width + 10) {
+                resetParticle(p);
+            }
+        }
+
+        draw();
+        animationId = requestAnimationFrame(tick);
+    }
+
+    // Bind resize event and initialize
+    window.addEventListener('resize', resizeCanvas);
+    initParticles();
+    resizeCanvas();
+    
+    if (!prefersReducedMotion) {
+        tick();
+    } else {
+        draw();
+    }
 }
+

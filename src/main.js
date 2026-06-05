@@ -14,6 +14,7 @@ import { initWebGL, selectPreset, updateWebGL } from './js/webglEngine.js';
 import { initParallax, updateUIParallax } from './js/parallax.js';
 import { initBudget } from './js/budgetCalc.js';
 import { initUI } from './js/uiControls.js';
+import { initLoader } from './js/loader.js';
 
 // Central Coordinated Shared State Object
 export const state = {
@@ -103,15 +104,8 @@ window.addEventListener('DOMContentLoaded', () => {
     updateCursor();
     requestAnimationFrame(draw);
     
-    // Reveal custom cursor and fade in unstyled elements after loading is complete
-    if (cursor) {
-        cursor.style.display = 'flex';
-    }
-    const appContainer = document.getElementById('app-container');
-    if (appContainer) {
-        appContainer.style.transition = 'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
-        appContainer.style.opacity = '1';
-    }
-    
-    console.log('Antigravity // Disco Elysium party modular system successfully initialized.');
+    // Reveal custom cursor and fade in unstyled elements after loading is complete (delegated to loader)
+    initLoader(() => {
+        console.log('Antigravity // Disco Elysium party modular system successfully initialized.');
+    });
 });

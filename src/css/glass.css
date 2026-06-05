@@ -37,13 +37,20 @@
     padding: 2.5rem;
 }
 
-.dossier-box::before {
+.arch::before, .tcard::before, .tix::before, .dossier-box::before, .prog-stat::before, .evidence-card::before {
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: radial-gradient(500px circle at var(--mouse-x, 0px) var(--mouse-y, 0px), rgba(255, 255, 255, 0.04), transparent 45%);
+    background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.12), transparent 40%);
+    mix-blend-mode: overlay;
     pointer-events: none;
     z-index: 1;
+    transition: opacity 0.3s;
+    opacity: 0;
+}
+
+.arch:hover::before, .tcard:hover::before, .tix:hover::before, .dossier-box:hover::before, .prog-stat:hover::before, .evidence-card:hover::before {
+    opacity: 1;
 }
 
 /* =========================================================================

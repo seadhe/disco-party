@@ -108,25 +108,37 @@ export function initRealsCalculator() {
 const BUDGET = {
     1: {
         total: '127 500', 
-        sub: '20 ЧЕЛОВЕК · 1 НОЧЬ',
-        contrib: '67 500 ₽ — примерно 3 375 ₽ с человека',
-        cats: [
-            { name: 'Аренда дома', val: '45 000 ₽', pct: 35 },
-            { name: 'Бар и напитки', val: '39 000 ₽', pct: 31 },
-            { name: 'Еда и закуски', val: '20 000 ₽', pct: 16 },
-            { name: 'Печать, декор, расходники', val: '23 500 ₽', pct: 18 }
+        sub: 'СТОИМОСТЬ ВСЕЙ НОЧИ',
+        contrib: '',
+        included: [
+            'Внутренняя валюта реалы',
+            'Самодельный бар (бармен-доброволец из своих)',
+            'Декорации: распечатки, постеры, дискошар',
+            'Простое казино (кости, карты)',
+            'Блайнд-боксы и ачивки',
+            'Возможность ставить свои треки за реалы',
+            'Тематические этикетки на алкоголь и сигареты',
+            'Гайд по дресс-коду и лору',
+            'Пункт обмена валюты',
+            'Лотерея и кнопка «гойского гоя»',
+            'Газета Ревашоля на входе',
+            'Костёр для ритуального сожжения реалов',
+            'Аукцион с молотка: 3 эксклюзивных лота',
+            'Аренда номера на ночь',
+            'Похмельный стафф утром'
         ]
     },
     2: {
         total: '238 400', 
-        sub: '30 ЧЕЛОВЕК · 1 НОЧЬ',
-        contrib: '178 400 ₽ — примерно 5 950 ₽ с человека',
-        cats: [
-            { name: 'Аренда коттеджа', val: '55 000 ₽', pct: 23 },
-            { name: 'Бар и напитки', val: '63 100 ₽', pct: 26 },
-            { name: 'Еда + шашлык', val: '39 800 ₽', pct: 17 },
-            { name: 'Бармен, акустика, свет', val: '13 000 ₽', pct: 5 },
-            { name: 'Печать, мерч, лоты, реквизит', val: '67 500 ₽', pct: 29 }
+        sub: 'СТОИМОСТЬ ВСЕЙ НОЧИ',
+        contrib: '',
+        included: [
+            'Наёмный бармен',
+            'Расширенный пул квестов с наградами',
+            'Расширенная акустика и свет',
+            'Чёрный рынок с NPC-торговцем',
+            'Шашлык и расширенное меню еды',
+            'Мерч для верхних тиров'
         ]
     }
 };
@@ -135,122 +147,274 @@ export function setGrade(g) {
     const d = BUDGET[g];
     if (!d) return;
 
-    document.getElementById('bTotal').innerHTML = d.total + '<span class="cur"> ₽</span>';
-    document.getElementById('bSub').textContent = d.sub;
-    document.getElementById('bContrib').textContent = d.contrib;
-    
-    // Toggle active classes on G1/G2 pills
-    document.querySelectorAll('.grade-pill').forEach(p => {
-        p.classList.toggle('active', parseInt(p.dataset.grade) === g);
-    });
+    // Apply color accents locally to the budget section
+    const budgetSec = document.getElementById('budget');
+    if (budgetSec) {
+        if (g === 1) {
+            budgetSec.style.setProperty('--accent', 'var(--amber)');
+            budgetSec.style.setProperty('--accent2', 'var(--magenta)');
+        } else if (g === 2) {
+            budgetSec.style.setProperty('--accent', 'var(--cyan)');
+            budgetSec.style.setProperty('--accent2', 'var(--violet)');
+        }
+    }
 
-    const cats = document.getElementById('bCats');
-    cats.innerHTML = d.cats.map(c => `
-        <div class="bcat">
-            <div class="bcat-row">
-                <span class="bcat-name">${c.name}</span>
-                <span class="bcat-val">${c.val} · ${c.pct}%</span>
-            </div>
-            <div class="bcat-bar"><div class="bcat-fill" data-t="${c.pct}"></div></div>
-        </div>
-    `).join('');
+    // Slide indicator background by updating toggle switcher class
+    const toggle = document.getElementById('budgetToggle');
+    if (toggle) {
+        toggle.classList.toggle('g2', g === 2);
+    }
+
+    const priceNum = document.getElementById('bTotal');
+    const subEl = document.getElementById('bSub');
+    const includedCard = document.getElementById('budgetCard');
+    const includedEl = document.getElementById('bWhatIncluded');
+
+    const updateContent = () => {
+        if (priceNum) {
+            priceNum.innerHTML = d.total + '<span class="cur"> ₽</span>';
+        }
+        if (subEl) {
+            subEl.textContent = d.sub;
+        }
+        if (includedEl) {
+            if (g === 1) {
+                includedEl.innerHTML = `
+                    <ul class="what-included-list">
+                        ${d.included.map(item => `<li>${item}</li>`).join('')}
+                    </ul>
+                `;
+            } else if (g === 2) {
+                includedEl.innerHTML = `
+                    <div class="what-included-plus-header">ВСЁ ИЗ ГРЕЙДА 1, ПЛЮС:</div>
+                    <ul class="what-included-list">
+                        ${d.included.map(item => `<li>${item}</li>`).join('')}
+                    </ul>
+                `;
+            }
+        }
+    };
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion) {
+        updateContent();
+    } else {
+        if (priceNum) priceNum.classList.add('fade-out');
+        if (includedCard) includedCard.classList.add('fade-out');
+
+        setTimeout(() => {
+            updateContent();
+            if (priceNum) priceNum.classList.remove('fade-out');
+            if (includedCard) includedCard.classList.remove('fade-out');
+        }, 200);
+    }
+}
+
+function formatRussianDate(dateStr, isUpperCase = false) {
+    if (!dateStr) return '';
+    const parts = dateStr.split('-');
+    if (parts.length !== 3) return dateStr;
+    const monthIndex = parseInt(parts[1], 10) - 1;
+    const day = parseInt(parts[2], 10);
     
-    requestAnimationFrame(() => {
-        cats.querySelectorAll('.bcat-fill').forEach((b, i) => {
-            setTimeout(() => b.style.width = b.dataset.t + '%', i * 60);
+    const months = [
+        "января", "февраля", "марта", "апреля", "мая", "июня",
+        "июля", "августа", "сентября", "октября", "ноября", "декабря"
+    ];
+    
+    const month = months[monthIndex] || '';
+    const formatted = `${day} ${month}`;
+    return isUpperCase ? formatted.toUpperCase() : formatted;
+}
+
+function getDaysLeft(deadlineStr) {
+    if (!deadlineStr) return 0;
+    const parts = deadlineStr.split('-');
+    if (parts.length !== 3) return 0;
+    
+    const deadlineDate = new Date(parseInt(parts[0], 10), parseInt(parts[1], 10) - 1, parseInt(parts[2], 10), 0, 0, 0, 0);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    const diffTime = deadlineDate - today;
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays > 0 ? diffDays : 0;
+}
+
+function animateProgressFill(targetPercent, collectedVal) {
+    const fillEl = document.getElementById('pFill');
+    const circleFg = document.getElementById('pCircleFg');
+    const fillLabel = document.getElementById('pFillLabel');
+    if (!fillEl) return;
+
+    if (fillLabel) {
+        fillLabel.textContent = Number(collectedVal).toLocaleString('ru-RU') + ' ₽';
+    }
+
+    const circumference = 150.8;
+    const strokeOffset = circumference - (circumference * targetPercent / 100);
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion) {
+        fillEl.style.transition = 'none';
+        fillEl.style.width = targetPercent + '%';
+        if (circleFg) {
+            circleFg.style.transition = 'none';
+            circleFg.style.strokeDashoffset = strokeOffset;
+        }
+        return;
+    }
+
+    // Reset to 0 initially so animation can fire on scroll
+    fillEl.style.width = '0%';
+    if (circleFg) {
+        circleFg.style.strokeDashoffset = circumference;
+    }
+
+    const observerOptions = {
+        root: null,
+        threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Trigger transition animation
+                fillEl.style.width = targetPercent + '%';
+                if (circleFg) {
+                    circleFg.style.strokeDashoffset = strokeOffset;
+                }
+                observer.unobserve(entry.target);
+            }
         });
-    });
+    }, observerOptions);
+
+    const progressSection = document.getElementById('progress');
+    if (progressSection) {
+        observer.observe(progressSection);
+    } else {
+        fillEl.style.width = targetPercent + '%';
+        if (circleFg) {
+            circleFg.style.strokeDashoffset = strokeOffset;
+        }
+    }
 }
 
 export function initBudget() {
     const fallbackData = {
-        "collected": 82100,
-        "target_g1": 67500,
-        "target_g2": 178400,
-        "tickets_sold": 14,
-        "decision_date": "2026-06-06",
-        "last_updated": "27 мая"
+        "collected": 77000,
+        "buyers": 3,
+        "deadline": "2026-07-15",
+        "updated": "2026-06-06",
+        "goalG1": 127500,
+        "goalG2": 238400,
+        "orgStart": 60000
     };
 
     function updateUI(data) {
-        // Calculate percentage collected relative to G2 goal
-        const percentage = (data.collected / data.target_g2) * 100;
-        
-        // Calculate days left relative to decision_date
-        const targetDate = new Date(data.decision_date);
-        const currentDate = new Date();
-        const diffTime = targetDate - currentDate;
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        const daysLeft = diffDays > 0 ? diffDays : 0;
-
-        // Update main telemetry metrics
         const collectedEl = document.getElementById('pCollected');
         if (collectedEl) {
             collectedEl.innerHTML = Number(data.collected).toLocaleString('ru-RU') + '<span class="cur"> ₽</span>';
         }
 
-        const progOfEl = document.querySelector('.prog-of');
-        if (progOfEl) {
-            progOfEl.textContent = `из ${Number(data.target_g2).toLocaleString('ru-RU')} ₽ на полный Грейд 2 · обновлено ${data.last_updated}`;
+        const formattedGoalG1 = Number(data.goalG1).toLocaleString('ru-RU');
+        const formattedGoalG2 = Number(data.goalG2).toLocaleString('ru-RU');
+        const formattedUpdated = formatRussianDate(data.updated, true);
+        
+        const goalG1Text = document.getElementById('pGoalG1Text');
+        if (goalG1Text) {
+            goalG1Text.textContent = `ГРЕЙД 1 — ${formattedGoalG1} ₽`;
+        }
+        const goalG2Text = document.getElementById('pGoalG2Text');
+        if (goalG2Text) {
+            goalG2Text.textContent = `ГРЕЙД 2 — ${formattedGoalG2} ₽`;
+        }
+        const updateStamp = document.getElementById('pUpdateStamp');
+        if (updateStamp) {
+            updateStamp.textContent = `ОБНОВЛЯЕТСЯ КАЖДУЮ НЕДЕЛЮ · ОБНОВЛЕНО · ${formattedUpdated}`;
         }
 
-        // Update progress statistics cards (sold, days left, percentage)
-        const statCards = document.querySelectorAll('.prog-stat .n');
-        if (statCards.length >= 3) {
-            statCards[0].textContent = data.tickets_sold; 
-            statCards[1].textContent = daysLeft; 
-            statCards[2].innerHTML = Math.round(percentage) + '<span class="pct">%</span>'; 
+        const pBuyers = document.getElementById('pBuyers');
+        if (pBuyers) {
+            pBuyers.textContent = data.buyers;
         }
 
-        // Update progress timeline fill track
-        const fillEl = document.getElementById('pFill');
-        if (fillEl) {
-            fillEl.style.width = Math.min(percentage, 100) + '%';
+        const daysLeft = getDaysLeft(data.deadline);
+        const pDaysLeft = document.getElementById('pDaysLeft');
+        if (pDaysLeft) {
+            pDaysLeft.textContent = daysLeft;
+        }
+        
+        const formattedDeadline = formatRussianDate(data.deadline, false);
+        const pDeadlineText = document.getElementById('pDeadlineText');
+        if (pDeadlineText) {
+            pDeadlineText.innerHTML = `дней до<br>решения<br><small style="font-size: 0.65rem; opacity: 0.8; font-family: 'JetBrains Mono', monospace; font-weight: normal; text-transform: uppercase; margin-top: 4px; display: block; color: var(--amber);">дедлайн ${formattedDeadline}</small>`;
         }
 
-        // Dynamically shift visual G1/G2 markers based on actual data
-        const marks = document.querySelectorAll('.prog-mark');
-        if (marks.length >= 2) {
-            const g1Pos = (data.target_g1 / data.target_g2) * 100;
-            marks[0].style.left = Math.round(g1Pos) + '%';
-            marks[0].querySelector('.amt').textContent = (data.target_g1 / 1000).toFixed(1) + 'к';
-            
-            marks[1].style.left = '95%'; // Beautiful padding buffer
-            marks[1].querySelector('.amt').textContent = (data.target_g2 / 1000).toFixed(1) + 'к';
+        const percentage = (data.collected / data.goalG2) * 100;
+        const pPercent = document.getElementById('pPercent');
+        if (pPercent) {
+            pPercent.innerHTML = Math.round(percentage) + '<span class="pct">%</span>';
         }
 
-        // Update dynamic Esprit de Corps speech bubble text
+        const pMarkOrg = document.getElementById('pMarkOrg');
+        if (pMarkOrg) {
+            const pos = (data.orgStart / data.goalG2) * 100;
+            pMarkOrg.style.left = pos.toFixed(2) + '%';
+            pMarkOrg.querySelector('.amt').textContent = (data.orgStart / 1000).toFixed(0) + 'к';
+        }
+
+        const pMarkG1 = document.getElementById('pMarkG1');
+        if (pMarkG1) {
+            const pos = (data.goalG1 / data.goalG2) * 100;
+            pMarkG1.style.left = pos.toFixed(2) + '%';
+            pMarkG1.querySelector('.amt').textContent = (data.goalG1 / 1000).toLocaleString('ru-RU', {maximumFractionDigits: 1}) + 'к';
+        }
+
+        const pMarkG2 = document.getElementById('pMarkG2');
+        if (pMarkG2) {
+            pMarkG2.style.left = '100%';
+            pMarkG2.querySelector('.amt').textContent = (data.goalG2 / 1000).toLocaleString('ru-RU', {maximumFractionDigits: 1}) + 'к';
+        }
+
+        // Trigger animation
+        animateProgressFill(percentage, data.collected);
+
         if (skillVoices['progress']) {
-            skillVoices['progress'].text = `${data.tickets_sold} детективов уже сдавали векселя. Твоё плечо должно быть рядом с ними на этой вечеринке. Не отставай.`;
+            skillVoices['progress'].text = `${data.buyers} детективов уже сдавали векселя. Твоё плечо должно быть рядом с ними на этой вечеринке. Не отставай.`;
         }
     }
 
-    // Attach grade G1/G2 switches event listeners dynamically
-    document.querySelectorAll('.grade-pill').forEach(pill => {
-        pill.addEventListener('click', () => {
-            const g = parseInt(pill.dataset.grade);
-            setGrade(g);
+    // Attach switcher listener
+    const toggle = document.getElementById('budgetToggle');
+    if (toggle) {
+        toggle.querySelectorAll('.grade-toggle-half').forEach(h => {
+            h.addEventListener('click', () => {
+                const g = parseInt(h.dataset.g);
+                setGrade(g);
+            });
         });
-    });
+    }
 
-    // Run baseline initial render for Grade 1
     setGrade(1);
-    
-    // Boot interactive reals calculator
     initRealsCalculator();
 
-    // Fetch telemetry database values
+    // Fetch dynamic telemetry
     fetch('./data.json')
         .then(response => {
             if (!response.ok) throw new Error('Network status failed');
             return response.json();
         })
         .then(data => {
+            if (!data || typeof data.collected === 'undefined') {
+                throw new Error('Invalid JSON structure');
+            }
             console.log('Live metrics loaded from data.json:', data);
             updateUI(data);
         })
         .catch(err => {
-            console.warn('CORS or file:// load fallback to local telemetry:', err);
+            console.warn('Fallback to local telemetry (CORS or Invalid Data):', err);
             updateUI(fallbackData);
         });
 }

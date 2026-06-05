@@ -10,53 +10,43 @@ function setupTilt(el, isLogo = false) {
     let rotX = 0, rotY = 0;
     let targetRotX = 0, targetRotY = 0;
 
+    let ticking = false;
+
     el.addEventListener('mousemove', (e) => {
-        const rect = el.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
-        el.style.setProperty('--mouse-x', `${x}px`);
-        el.style.setProperty('--mouse-y', `${y}px`);
+        if (!ticking) {
+            requestAnimationFrame(() => {
+                const rect = el.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                el.style.setProperty('--mouse-x', `${x}px`);
+                el.style.setProperty('--mouse-y', `${y}px`);
 
-        const width = rect.width;
-        const height = rect.height;
+                const width = rect.width;
+                const height = rect.height;
 
-        // Max angle limit
-        let maxAngle = 9;
-        if (isLogo) {
-            maxAngle = 7; // slightly gentler sway for the main logo
-        } else if (el.classList.contains('dossier-box')) {
-            maxAngle = 4;
+                // Max angle limit
+                let maxAngle = 9;
+                if (isLogo) {
+                    maxAngle = 7; // slightly gentler sway for the main logo
+                } else if (el.classList.contains('dossier-box')) {
+                    maxAngle = 4;
+                }
+
+                targetRotX = -((y - height / 2) / height) * maxAngle;
+                targetRotY = ((x - width / 2) / width) * maxAngle;
+                ticking = false;
+            });
+            ticking = true;
         }
-
-        targetRotX = -((y - height / 2) / height) * maxAngle;
-        targetRotY = ((x - width / 2) / width) * maxAngle;
     });
 
     if (isLogo) {
-        let glitchTimeout = null;
-        el.addEventListener('mouseenter', () => {
-            const img = el.querySelector('.hero-logo-img');
-            if (img) {
-                if (glitchTimeout) clearTimeout(glitchTimeout);
-                img.classList.add('aberration-active');
-                glitchTimeout = setTimeout(() => {
-                    img.classList.remove('aberration-active');
-                }, 500);
-            }
-        });
-
         el.addEventListener('mouseleave', () => {
             targetRotX = 0;
             targetRotY = 0;
             el.style.setProperty('--mouse-x', '0px');
             el.style.setProperty('--mouse-y', '0px');
-            
-            const img = el.querySelector('.hero-logo-img');
-            if (img) {
-                if (glitchTimeout) clearTimeout(glitchTimeout);
-                img.classList.remove('aberration-active');
-            }
         });
     } else {
         el.addEventListener('mouseleave', () => {
@@ -108,7 +98,7 @@ function setupTilt(el, isLogo = false) {
 
 // Auto-inject technical constructivist corner markers dynamically into floating consoles
 export function initParallax() {
-    const tiltElements = document.querySelectorAll('.arch, .tcard, .tix, .dossier-box, .prog-stat');
+    const tiltElements = document.querySelectorAll('.arch, .tix, .dossier-box, .prog-stat');
 
     tiltElements.forEach(el => {
         el.classList.add('tech-frame');

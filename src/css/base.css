@@ -2,7 +2,7 @@
    Base design system, custom typography tokens, and browser overrides
    ========================================================================= */
 
-@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;600;700&family=Spectral:ital,wght@0,300;0,400;0,500;0,700;1,400&family=JetBrains+Mono:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;600;700&family=Spectral:ital,wght@0,300;0,400;0,500;0,700;1,400&family=JetBrains+Mono:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,700;1,400&family=Fraunces:ital,opsz,wght@1,9..144,400&display=swap');
 
 :root {
     /* Disco Elysium Palette */
@@ -64,8 +64,8 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
+    right: 0;
+    bottom: 0;
     z-index: 0;
     pointer-events: none;
 }
@@ -246,7 +246,8 @@ h1, h2, h3, .logo-title, .arch-name, .tix-name, .tname, .footer-title, .modal-ti
     font-size: clamp(3.5rem, 10vw, 6.2rem);
     line-height: 0.92;
     letter-spacing: 0.01em;
-    color: var(--paper);
+    color: rgba(244, 236, 220, 0.95);
+    mix-blend-mode: color-dodge;
     margin-bottom: 2rem;
     text-shadow: 0 4px 15px rgba(0,0,0,0.4);
     will-change: transform;
@@ -349,52 +350,92 @@ h1, h2, h3, .logo-title, .arch-name, .tix-name, .tname, .footer-title, .modal-ti
 }
 
 .footer-title {
-    font-size: 2.8rem;
+    font-size: 3.5rem;
     line-height: 0.9;
     color: var(--paper);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.8rem;
 }
 
 .footer-sub {
-    font-size: 1.15rem;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.65rem;
     color: var(--paper-dim);
-    margin-bottom: 2.2rem;
+    margin-bottom: 3.5rem;
 }
 
 .footer-links {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    max-width: 320px;
+    width: 100%;
+    max-width: 480px;
     margin: 0 auto;
 }
 
-.footer-link {
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    color: var(--paper);
-    text-decoration: none;
-    padding: 0.85rem 1.5rem;
-    border: 1px solid var(--card-border);
+.footer-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    white-space: nowrap;
+    color: var(--void);
+    background: linear-gradient(135deg, var(--magenta-hot), var(--amber-hot));
+    border: none;
+    padding: 1.3rem 2.4rem;
+    cursor: pointer;
     border-radius: 0px;
-    background: rgba(255,255,255,0.015);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    transition: all 0.25s;
-    display: flex;
-    justify-content: space-between;
+    text-transform: uppercase;
+    text-decoration: none;
+    position: relative;
+    box-shadow: 0 0 20px rgba(255, 31, 143, 0.35), 0 0 35px rgba(255, 176, 46, 0.2), 0 4px 15px rgba(0,0,0,0.4);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    width: 100%;
+    box-sizing: border-box;
+    animation: footerPulseGlow 3s ease-in-out infinite;
 }
 
-.footer-link:hover {
-    border-color: var(--magenta-hot);
-    color: var(--magenta-hot);
-    box-shadow: 0 4px 15px rgba(255,31,143,0.15);
-    transform: translateY(-2px);
+.footer-cta-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 30px rgba(255, 31, 143, 0.8), 0 0 50px rgba(255, 176, 46, 0.5), 0 10px 25px rgba(0,0,0,0.5);
+}
+
+.footer-cta-btn .tg-icon {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+}
+
+@keyframes footerPulseGlow {
+    0%, 100% {
+        box-shadow: 0 0 15px rgba(255, 31, 143, 0.35), 0 0 30px rgba(255, 176, 46, 0.15), 0 4px 15px rgba(0,0,0,0.4);
+    }
+    50% {
+        box-shadow: 0 0 25px rgba(255, 31, 143, 0.65), 0 0 45px rgba(255, 176, 46, 0.35), 0 4px 15px rgba(0,0,0,0.4);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .footer-cta-btn {
+        animation: none !important;
+        transform: none !important;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.4) !important;
+    }
+    .footer-cta-btn:hover {
+        transform: none !important;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.4) !important;
+    }
 }
 
 .footer-credit {
     margin-top: 3.5rem;
     line-height: 1.7;
+    color: var(--text-dim);
+    text-transform: none;
 }
 
 /* =========================================================================
@@ -429,3 +470,90 @@ h1, h2, h3, .logo-title, .arch-name, .tix-name, .tname, .footer-title, .modal-ti
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(6px); }
 }
+
+/* =========================================================================
+   Intro Loader Styles
+   ========================================================================= */
+#loader {
+    position: fixed;
+    inset: 0;
+    background: var(--void);
+    z-index: 10000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 36px;
+}
+
+.l-dice-row {
+    display: flex;
+    gap: 24px;
+}
+
+.l-die {
+    width: 80px;
+    height: 80px;
+    animation: diceRoll 1.3s cubic-bezier(0.34, 1.4, 0.64, 1) forwards;
+    opacity: 0;
+}
+
+.l-die:nth-child(2) {
+    animation-delay: 0.12s;
+}
+
+@keyframes diceRoll {
+    0%   { opacity: 0; transform: rotate(0deg) translateY(-40px) scale(0.6); }
+    20%  { opacity: 1; }
+    65%  { transform: rotate(740deg) translateY(8px) scale(1.05); }
+    80%  { transform: rotate(718deg) translateY(-4px) scale(1); }
+    90%  { transform: rotate(724deg) translateY(2px); }
+    100% { transform: rotate(720deg) translateY(0) scale(1); opacity: 1; }
+}
+
+.l-die rect, .l-die circle {
+    stroke-dasharray: 400;
+    stroke-dashoffset: 400;
+    animation: drawNeonOutline 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.l-die circle {
+    stroke-dasharray: 50;
+    stroke-dashoffset: 50;
+    animation-delay: 0.3s;
+    stroke: var(--cyan-hot);
+    stroke-width: 2px;
+}
+
+@keyframes drawNeonOutline {
+    to { stroke-dashoffset: 0; }
+}
+
+#l-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    color: var(--paper);
+    letter-spacing: 0.06em;
+    white-space: pre;
+    min-height: 48px;
+    text-align: center;
+    line-height: 2;
+}
+
+#l-text::after {
+    content: '_';
+    animation: blink 0.7s step-end infinite;
+}
+
+#flash {
+    position: fixed;
+    inset: 0;
+    background: var(--violet);
+    z-index: 9998;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s;
+}
+
+
+

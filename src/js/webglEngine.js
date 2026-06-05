@@ -336,7 +336,7 @@ export function updateWebGL(timeSeconds, mouseX, mouseY, scrollY, canvasWidth, c
     if (!gl || !program) return;
 
     if (canvasElementIsResized(canvasWidth, canvasHeight)) {
-        gl.viewport(0, 0, canvasWidth, canvasHeight);
+        gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
     }
 
     gl.clearColor(0.02, 0.02, 0.03, 1.0);
@@ -347,9 +347,10 @@ export function updateWebGL(timeSeconds, mouseX, mouseY, scrollY, canvasWidth, c
     gl.bindBuffer(gl.ARRAY_BUFFER, posBuffer);
     gl.vertexAttribPointer(positionAttrLoc, 2, gl.FLOAT, false, 0, 0);
 
-    gl.uniform2f(uLoc.resolution, canvasWidth, canvasHeight);
+    const pixelRatio = window.devicePixelRatio || 1;
+    gl.uniform2f(uLoc.resolution, gl.canvas.width, gl.canvas.height);
     gl.uniform1f(uLoc.time, timeSeconds);
-    gl.uniform2f(uLoc.mouse, mouseX, mouseY);
+    gl.uniform2f(uLoc.mouse, mouseX * pixelRatio, mouseY * pixelRatio);
     gl.uniform1f(uLoc.scroll, scrollY);
 
     gl.uniform3fv(uLoc.colorDark, currentParams.colorDark);
@@ -366,9 +367,13 @@ export function updateWebGL(timeSeconds, mouseX, mouseY, scrollY, canvasWidth, c
 
 function canvasElementIsResized(width, height) {
     const canvas = gl.canvas;
-    if (canvas.width !== width || canvas.height !== height) {
-        canvas.width = width;
-        canvas.height = height;
+    const pixelRatio = window.devicePixelRatio || 1;
+    const targetWidth = Math.floor(width * pixelRatio);
+    const targetHeight = Math.floor(height * pixelRatio);
+    
+    if (canvas.width !== targetWidth || canvas.height !== targetHeight) {
+        canvas.width = targetWidth;
+        canvas.height = targetHeight;
         return true;
     }
     return false;

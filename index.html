@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#08000f">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     
     <!-- SEO Optimization Meta Tags -->
     <title>DISCO ELYSIUM // RCM-2026</title>
@@ -12,7 +13,7 @@
     <!-- Google Fonts Preconnect & Styling (Also in CSS for chunk injection) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;600;700&family=Spectral:ital,wght@0,300;0,400;0,500;0,700;1,400&family=JetBrains+Mono:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;600;700&family=Spectral:ital,wght@0,300;0,400;0,500;0,700;1,400&family=JetBrains+Mono:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,700;1,400&family=Fraunces:ital,opsz,wght@1,9..144,400&display=swap" rel="stylesheet">
     
     <!-- Prevent Flash of Unstyled Content (FOUC) and enable premium visual fade-in -->
     <style>
@@ -26,9 +27,47 @@
         #custom-cursor {
             display: none;
         }
+        #loader {
+            position: fixed;
+            inset: 0;
+            background: #08000f;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 36px;
+        }
     </style>
 </head>
 <body>
+
+    <div id="flash"></div>
+
+    <!-- LOADER -->
+    <div id="loader">
+        <div class="l-dice-row">
+            <svg class="l-die" viewBox="0 0 80 80" fill="none" aria-hidden="true">
+                <rect x="2" y="2" width="76" height="76" rx="11" stroke="var(--paper)" stroke-width="3" fill="var(--void)"/>
+                <circle cx="22" cy="22" r="7" fill="var(--paper)"/>
+                <circle cx="22" cy="40" r="7" fill="var(--paper)"/>
+                <circle cx="22" cy="58" r="7" fill="var(--paper)"/>
+                <circle cx="58" cy="22" r="7" fill="var(--paper)"/>
+                <circle cx="58" cy="40" r="7" fill="var(--paper)"/>
+                <circle cx="58" cy="58" r="7" fill="var(--paper)"/>
+            </svg>
+            <svg class="l-die" viewBox="0 0 80 80" fill="none" aria-hidden="true">
+                <rect x="2" y="2" width="76" height="76" rx="11" stroke="var(--paper)" stroke-width="3" fill="var(--void)"/>
+                <circle cx="22" cy="22" r="7" fill="var(--paper)"/>
+                <circle cx="22" cy="40" r="7" fill="var(--paper)"/>
+                <circle cx="22" cy="58" r="7" fill="var(--paper)"/>
+                <circle cx="58" cy="22" r="7" fill="var(--paper)"/>
+                <circle cx="58" cy="40" r="7" fill="var(--paper)"/>
+                <circle cx="58" cy="58" r="7" fill="var(--paper)"/>
+            </svg>
+        </div>
+        <div id="l-text" aria-live="polite"></div>
+    </div>
 
     <!-- Custom Interactive Cursor -->
     <div id="custom-cursor"></div>
@@ -63,30 +102,33 @@
             <!-- ============ 1. HERO BLOCK ============ -->
             <section class="section-card hero-section" id="hero-section" aria-labelledby="hero-title">
                 <div class="hero-discoball-container hover-trigger" aria-hidden="true">
-                    <img src="assets/discoball2.png" alt="Дискошар" class="hero-discoball-img">
+                    <img src="assets/discoball3.png" alt="Дискошар" class="hero-discoball-img">
                 </div>
 
                 <div class="hero-eyebrow">ИММЕРСИВНАЯ ВЕЧЕРИНКА · ОДНА НОЧЬ</div>
                 <h1 class="hero-title" id="hero-title">
                     <div class="hero-logo-tilt">
-                        <img src="assets/disco-party-logo.png" alt="DISCO PARTY — иммерсивная вечеринка по мотивам Disco Elysium" class="hero-logo-img">
+                        <img src="assets/dd.png" alt="DISCO PARTY — иммерсивная вечеринка по мотивам Disco Elysium" class="hero-logo-img default-logo">
+                        <img src="assets/disco-party-logo3.png" alt="DISCO PARTY — иммерсивная вечеринка по мотивам Disco Elysium" class="hero-logo-img hover-logo">
                     </div>
                     <span class="visually-hidden">Disco Party</span>
                 </h1>
-                <p class="hero-sub">Одна ночь, бар, ни одного трезвого решения и <span class="shimmer-text">дискошар</span> до рассвета.</p>
+                <p class="hero-sub">Одна ночь, ни одного трезвого решения и <span class="shimmer-text">дискошар</span> до рассвета.</p>
 
-                <div class="hero-meta">
-                    <div class="hero-meta-item">
-                        <span class="v">20.06.26</span>
-                        <span class="l">Суббота → утро</span>
+                <div class="hero-meta-box">
+                    <div class="hero-meta-date">
+                        <span class="date-value"><span class="date-decor">[</span> 15.08.26 <span class="date-decor">]</span></span>
+                        <span class="date-label">Суббота → утро</span>
                     </div>
-                    <div class="hero-meta-item">
-                        <span class="v">МСК / МО</span>
-                        <span class="l">адрес после оплаты</span>
-                    </div>
-                    <div class="hero-meta-item">
-                        <span class="v">20—30</span>
-                        <span class="l">гостей</span>
+                    <div class="hero-meta-details">
+                        <div class="hero-meta-item">
+                            <span class="v">МСК / МО</span>
+                            <span class="l">адрес сообщим позже</span>
+                        </div>
+                        <div class="hero-meta-item">
+                            <span class="v">20—35</span>
+                            <span class="l">участников</span>
+                        </div>
                     </div>
                 </div>
 
@@ -105,7 +147,6 @@
                             <span class="concept-chip" style="border-color: rgba(255, 176, 46, 0.25);">Реалы</span>
                             <span class="concept-chip" style="border-color: rgba(31, 230, 230, 0.25);">Казино</span>
                             <span class="concept-chip" style="border-color: rgba(255, 31, 143, 0.25);">Аукцион</span>
-                            <span class="concept-chip" style="border-color: rgba(155, 60, 255, 0.25);">Чёрный рынок</span>
                             <span class="concept-chip" style="border-color: rgba(182, 255, 60, 0.25);">Квесты</span>
                             <span class="concept-chip" style="border-color: rgba(244, 236, 220, 0.25);">Дресс-код</span>
                         </div>
@@ -114,7 +155,7 @@
                         <div class="body-mono">
                             <p class="concept-epigraph">Эстетика конца эпохи: выцветшие 70-е, застрявшие в приморском тупике, неон и дым.</p>
                             <p>Внутри ходит своя <span style="color: var(--amber); font-weight: 700;">валюта</span>, работает своё <span style="color: var(--cyan); font-weight: 700;">казино</span>, горит свой <span style="color: var(--magenta); font-weight: 700;">костёр</span> и действуют свои законы.</p>
-                            <p>Бар за реалы. Квесты, фракции, чёрный рынок. Дресс-код, который оценят. И <span style="color: var(--lime); font-weight: 700;">дискошар</span>, который не выключается до рассвета.</p>
+                            <p>Бар за реалы. Квесты. Дресс-код, который оценят. И <span style="color: var(--lime); font-weight: 700;">дискошар</span>.</p>
                         </div>
                     </div>
                 </div>
@@ -131,13 +172,14 @@
                         <span>СПРАВКА ДЛЯ ШТАТСКИХ / RCM-BRIEF</span>
                     </summary>
                     <div class="faq-content" style="padding: 1.5rem 0 0 0;">
-                        <h3 class="section-title" id="brief-title" style="font-size: 2.2rem; margin-bottom: 1.2rem; line-height: 1.1;">Не играл?<br>Не страшно.</h3>
-                        <div class="body-mono" style="font-size: 1.05rem; line-height: 1.65; color: var(--text-dim); margin-bottom: 1.5rem;">
-                            <p>Disco Elysium — игра про спившегося детектива в умирающем приморском городе Ревашоль. Ты расследуешь убийство, но половина дела — это спор с голосами в собственной голове: Интеллект, Психика, Физиология, Моторика. Мир пропитан алкоголем, политикой, философией и диско, которое так и не наступило.</p>
+                        <h3 class="section-title" id="brief-title" style="font-size: 2.2rem; margin-bottom: 1.2rem; line-height: 1.1; font-family: 'Oswald', sans-serif; font-weight: 700; text-transform: uppercase;">МИР, В КОТОРЫЙ ТЫ ИДЁШЬ</h3>
+                        <div style="font-family: 'Fraunces', serif; font-style: italic; font-size: 1.15rem; line-height: 1.65; color: var(--paper); margin-bottom: 1.5rem;">
+                            <p style="margin-bottom: 1.5rem;">Всё это — в эстетике игры <span style="color: var(--cyan); font-weight: 700; font-style: normal;">Disco Elysium</span>. Приморский тупик, выцветшие 70-е, неон, сигаретный дым, разговоры до утра и диско, которое так и не случилось.</p>
+                            <h4 style="font-family: 'Oswald', sans-serif; font-weight: 700; text-transform: uppercase; font-size: 1.3rem; color: var(--cyan-hot); margin: 2rem 0 1rem 0; font-style: normal; letter-spacing: 0.05em;">НЕ ИГРАЛ? НЕ СТРАШНО.</h4>
+                            <p style="margin-bottom: 0;">Понимать отсылки необязательно — атмосферу ловишь и без словаря.</p>
                         </div>
-                        <p style="font-family: 'Spectral', serif; font-style: italic; color: var(--cyan-hot); font-size: 1.2rem; line-height: 1.5;">
-                            ЭНЦИКЛОПЕДИЯ: технически, это нельзя пропустить. <br>
-                            <span style="color: var(--text-dim);">— СИЛА ВОЛИ: можно. Расслабься, остальному научим на входе.</span>
+                        <p style="font-family: 'Fraunces', serif; font-style: italic; color: var(--paper); font-size: 1.15rem; line-height: 1.6; border-top: 1px solid rgba(244, 236, 220, 0.12); padding-top: 1.5rem;">
+                            <span style="color: var(--cyan); font-weight: 700; font-style: normal;">ЭНЦИКЛОПЕДИЯ:</span> технически, это нельзя пропустить. &mdash; <span style="color: var(--magenta); font-weight: 700; font-style: normal;">ЭЛЕКТРОХИМИЯ:</span> это диско!
                         </p>
                     </div>
                 </details>
@@ -149,110 +191,119 @@
                 <h2 class="section-title" id="thoughts-title">Мысленный<br>кабинет</h2>
                 <p class="section-lead">Шёпот подсознания. Голоса навыков, определяющие <em>физику и метафизику</em> грядущей ночи.</p>
                 
-                <div class="thought-grid">
-                    <div class="arch phys hover-trigger">
-                        <div class="arch-top">
-                            <h3 class="arch-name">ЭЛЕКТРОХИМИЯ</h3>
-                            <span class="arch-id">01</span>
+                <div class="thought-list">
+                    <div class="voice v-magenta">
+                        <div class="voice-num">01</div>
+                        <div class="voice-content">
+                            <div class="voice-name">ЭЛЕКТРОХИМИЯ</div>
+                            <div class="voice-mechanic">Бар</div>
+                            <div class="voice-quote">Горло требует тепла. «Серость» разливают порциями. Не медли.</div>
                         </div>
-                        <div class="arch-tag">Бар</div>
-                        <div class="arch-desc">Горло требует тепла. «Серость» разливают порциями. Не медли.</div>
                     </div>
 
-                    <div class="arch motor hover-trigger">
-                        <div class="arch-top">
-                            <h3 class="arch-name">ВИЗУАЛЬНЫЙ РАСЧЁТ</h3>
-                            <span class="arch-id">02</span>
+                    <div class="voice v-amber">
+                        <div class="voice-num">02</div>
+                        <div class="voice-content">
+                            <div class="voice-name">ВИЗУАЛЬНЫЙ РАСЧЁТ</div>
+                            <div class="voice-mechanic">Казино</div>
+                            <div class="voice-quote">Кости лягут как надо. Казино открыто всю ночь, ставки в реалах. Считай шансы.</div>
                         </div>
-                        <div class="arch-tag">Казино</div>
-                        <div class="arch-desc">Кости лягут как надо. Казино открыто всю ночь, ставки в реалах. Считай шансы.</div>
                     </div>
 
-                    <div class="arch intel hover-trigger">
-                        <div class="arch-top">
-                            <h3 class="arch-name">ЭНЦИКЛОПЕДИЯ</h3>
-                            <span class="arch-id">03</span>
+                    <div class="voice v-cyan">
+                        <div class="voice-num">03</div>
+                        <div class="voice-content">
+                            <div class="voice-name">ЭНЦИКЛОПЕДИЯ</div>
+                            <div class="voice-mechanic">Квесты</div>
+                            <div class="voice-quote">Ночь полна заданий: проверки, испытания, квесты.</div>
                         </div>
-                        <div class="arch-tag">Квесты</div>
-                        <div class="arch-desc">Ночь полна заданий: проверки, испытания, квесты.</div>
                     </div>
 
-                    <div class="arch lime hover-trigger">
-                        <div class="arch-top">
-                            <h3 class="arch-name">САМООБЛАДАНИЕ</h3>
-                            <span class="arch-id">04</span>
+                    <div class="voice v-lime">
+                        <div class="voice-num">04</div>
+                        <div class="voice-content">
+                            <div class="voice-name">САМООБЛАДАНИЕ</div>
+                            <div class="voice-mechanic">Дресс-код</div>
+                            <div class="voice-quote">Черепомер встретит тебя у дверей и оценит образ по шкале.</div>
                         </div>
-                        <div class="arch-tag">Дресс-код</div>
-                        <div class="arch-desc">Черепомер встретит тебя у дверей и оценит образ по шкале.</div>
                     </div>
 
-                    <div class="arch intel hover-trigger">
-                        <div class="arch-top">
-                            <h3 class="arch-name">АВТОРИТЕТ</h3>
-                            <span class="arch-id">05</span>
+                    <div class="voice v-cyan">
+                        <div class="voice-num">05</div>
+                        <div class="voice-content">
+                            <div class="voice-name">АВТОРИТЕТ</div>
+                            <div class="voice-mechanic">Структура ночи</div>
+                            <div class="voice-quote">Хаос только кажется хаосом. У ночи есть расписание.</div>
                         </div>
-                        <div class="arch-tag">Структура ночи</div>
-                        <div class="arch-desc">Хаос только кажется хаосом. У ночи есть расписание.</div>
                     </div>
 
-                    <div class="arch psyche hover-trigger">
-                        <div class="arch-top">
-                            <h3 class="arch-name">ВНУТРЕННЯЯ ИМПЕРИЯ</h3>
-                            <span class="arch-id">06</span>
+                    <div class="voice v-violet">
+                        <div class="voice-num">06</div>
+                        <div class="voice-content">
+                            <div class="voice-name">ВНУТРЕННЯЯ ИМПЕРИЯ</div>
+                            <div class="voice-mechanic">Погружение</div>
+                            <div class="voice-quote">Войди в роль — и вещи начнут отвечать.</div>
                         </div>
-                        <div class="arch-tag">Погружение</div>
-                        <div class="arch-desc">Войди в роль — и вещи начнут отвечать.</div>
+                    </div>
+                </div>
+            </section>
+
+             <!-- ============ 2-В. MANIFESTO SECTION ============ -->
+            <section class="section-card reveal" id="manifesto" aria-labelledby="manifesto-title">
+                <div class="section-eyebrow c-violet">[ ДЕЛО №RCM-2026 // РАЗДЕЛ 01-В: ЗАЧЕМ ЭТО ]</div>
+                <h2 class="section-title" id="manifesto-title">ЗАЧЕМ ЭТО</h2>
+                
+                <div class="manifesto-container">
+                    <div class="manifesto-card dossier-box hover-trigger">
+                        <div class="manifesto-aurora-bg">
+                            <div class="aurora-blob blob-magenta"></div>
+                            <div class="aurora-blob blob-violet"></div>
+                            <div class="aurora-blob blob-cyan"></div>
+                            <div class="aurora-blob blob-amber"></div>
+                        </div>
+                        <canvas id="manifesto-card-particles"></canvas>
+                        <div class="manifesto-card-content" style="position: relative; z-index: 2;">
+                            <div class="manifesto-column-left">
+                                <p class="manifesto-p">
+                                    Современность продаёт нам время как <span class="kw" data-kw="void">гомогенную пустоту</span>: часы, неотличимые друг от 
+                                    друга, дни, которые можно бесконечно менять местами. Понедельник равен вторнику, 
+                                    май равен ноябрю, всё взаимозаменяемо и оттого ничего не значит.
+                                </p>
+                                <p class="manifesto-p">
+                                    В таком времени сообщества не живут — они растворяются, потому что им не за что зацепиться.
+                                </p>
+                            </div>
+                            
+                            <div class="manifesto-column-right">
+                                <p class="manifesto-p">
+                                    <span class="kw" data-kw="holiday">Праздник</span> всегда был сопротивлением этому. Пир, карнавал, ночь, вырезанная из 
+                                    рабочего календаря — точка, вокруг которой собирается племя. Время, у которого 
+                                    есть имя, плотность и собственные законы.
+                                </p>
+                                
+                                <p class="manifesto-p">
+                                    Мы не зовём «потусить». Мы вырезаем из серого потока одну ночь, даём ей 
+                                    активности и ритуалы — и стягиваем к ней всех, кто согласен на эту игру.
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
 
             <!-- ============ 3. DRESS CODE SECTION ============ -->
             <section class="section-card reveal" id="dress" aria-labelledby="dress-title">
-                <div class="section-eyebrow c-violet">[ ДЕЛО №RCM-2026 // РАЗДЕЛ 02: АРХЕТИПЫ ]</div>
-                <h2 class="section-title" id="dress-title">Четыре<br>архетипа</h2>
+                <div class="section-eyebrow c-violet">[ ДЕЛО №RCM-2026 // РАЗДЕЛ 02: ВНЕШНИЙ ВИД ]</div>
+                <h2 class="section-title" id="dress-title">СТИЛЬ ЭТОЙ НОЧИ</h2>
                 
-                <p class="section-lead">Выбери внутреннего следователя. Это <em>не строгий</em> код — это вектор. Один цветовой акцент, многослойность, аксессуары.</p>
+                <p class="section-lead">Оденься не «на вечеринку». Оденься так, будто ты уже там — вышел покурить и забыл вернуться на пару часов. Выцветшие 70-е, дешёвый шик, один яркий акцент и <em>много диско</em> — цветастые рубашки, широкие воротники, обилие аксессуаров, неряшливость, безумные сочетания.</p>
 
-                <div class="arch-stack">
-                    <div class="arch intel hover-trigger">
-                        <div class="arch-top">
-                            <h3 class="arch-name">ИНТЕЛЛЕКТ</h3>
-                            <span class="arch-id">01</span>
-                        </div>
-                        <div class="arch-tag">Кабинетный мыслитель</div>
-                        <div class="arch-desc">Холодные цвета. Глубокий синий, серо-зелёный. Очки в тонкой оправе. Папка, тетрадь, заложенная книга в руках.</div>
-                    </div>
-                    
-                    <div class="arch psyche hover-trigger">
-                        <div class="arch-top">
-                            <h3 class="arch-name">ПСИХИКА</h3>
-                            <span class="arch-id">02</span>
-                        </div>
-                        <div class="arch-tag">Голос в тумане</div>
-                        <div class="arch-desc">Винный бордо, угольно-чёрный. Бархат, шёлк. Цепочка, медальон, чётки. Асимметрия приветствуется.</div>
-                    </div>
-                    
-                    <div class="arch phys hover-trigger">
-                        <div class="arch-top">
-                            <h3 class="arch-name">ФИЗИОЛОГИЯ</h3>
-                            <span class="arch-id">03</span>
-                        </div>
-                        <div class="arch-tag">Голос из тела</div>
-                        <div class="arch-desc">Ржавый, охра, бордо. Кожа, джинса, грубая шерсть. Тельняшка под пиджаком. Ботинки, которые куда-то ходили.</div>
-                    </div>
-                    
-                    <div class="arch motor hover-trigger">
-                        <div class="arch-top">
-                            <h3 class="arch-name">МОТОРИКА</h3>
-                            <span class="arch-id">04</span>
-                        </div>
-                        <div class="arch-tag">Голос в руках</div>
-                        <div class="arch-desc">Жёлтый, охра, горчичный, золотой. Бомбер. Узкие штаны. Часы, которые носишь ради жеста, а не времени.</div>
-                    </div>
+                <div class="dossier-box hover-trigger" style="margin-top: 2.5rem; border-top-color: var(--violet); padding: 1.5rem;">
+                    <p style="margin: 0; font-family: 'Fraunces', serif; font-style: italic; font-size: 1.65rem; line-height: 1.5;">Это не строгий дресс-код — это вектор. Строгих правил нет — есть настроение.</p>
                 </div>
 
                 <div style="margin-top:2.5rem; text-align:center;">
-                    <p class="body-mono"><strong>«Черепомер»</strong> на входе оценит костюм от 0 до 500 ℜ — бонус к стартовому балансу.</p>
+                    <p class="body-mono">Черепомер на входе оглядит тебя с ног до головы. Это не страшно.</p>
                 </div>
             </section>
 
@@ -260,66 +311,57 @@
             <section class="section-card reveal" id="bar" aria-labelledby="bar-title">
                 <div class="section-eyebrow c-lime">[ ДЕЛО №RCM-2026 // РАЗДЕЛ 02-Б: ДИСПАНСЕРИЗАЦИЯ ]</div>
                 <h2 class="section-title" id="bar-title">Меню бара<br>Ревашоля</h2>
-                <p class="section-lead">Химическое спасение. Жидкие стимуляторы и <em>анестетики реальности</em>, отпускаемые дежурным за реалы.</p>
+                <p class="section-lead">Химическое спасение за реалы. Жидкие стимуляторы, <em>анестетики реальности</em> и пара способов окончательно потерять связь с трезвостью.</p>
                 
                 <div class="bar-grid">
-                    <div class="arch phys hover-trigger">
-                        <div class="arch-top">
-                            <h3 class="arch-name">ВОДКА «СЕРОСТЬ»</h3>
-                            <span class="arch-id">100 ℜ</span>
-                        </div>
-                        <div class="arch-tag">ШОТ 50 МЛ // ЧИСТЫЙ АЦЕТОН</div>
-                        <div class="arch-desc">Чистый дистиллят Ревашоля. Выжигает сомнения, оставляет лишь холодный расчёт и готовность к действию. Запить можно слезами организаторов.</div>
+                    <!-- ВОДКА «СЕРОСТЬ» -->
+                    <div class="bar-sticker c-magenta hover-trigger">
+                        <h3 class="bar-sticker-title">ВОДКА «СЕРОСТЬ»</h3>
+                        <div class="bar-sticker-meta">ШОТ 50 МЛ // ЧИСТЫЙ АЦЕТОН</div>
+                        <p class="bar-sticker-desc">Чистый дистиллят Ревашоля. Выжигает сомнения.</p>
                     </div>
 
-                    <div class="arch motor hover-trigger">
-                        <div class="arch-top">
-                            <h3 class="arch-name">ПИВО «ДЕБАРДЁРОВ»</h3>
-                            <span class="arch-id">150 ℜ</span>
-                        </div>
-                        <div class="arch-tag">СВЕТЛОЕ 0.5 Л // ПОРТОВЫЙ РЕЗЕРВ</div>
-                        <div class="arch-desc">Горькое ячменное топливо. Освежает мысли, утяжеляет кулаки и помогает пережить забастовку или затяжной спор у костра во дворе.</div>
+                    <!-- ПИВО «ДЕБАРДЁРОВ» -->
+                    <div class="bar-sticker c-amber hover-trigger">
+                        <h3 class="bar-sticker-title">ПИВО «ДЕБАРДЁРОВ»</h3>
+                        <div class="bar-sticker-meta">СВЕТЛОЕ 0.5 Л // ПОРТОВЫЙ РЕЗЕРВ</div>
+                        <p class="bar-sticker-desc">Горькое ячменное топливо. Утяжеляет кулаки.</p>
                     </div>
 
-                    <div class="arch psyche hover-trigger">
-                        <div class="arch-top">
-                            <h3 class="arch-name">ВИНО «КИНЕМОВСКОЕ»</h3>
-                            <span class="arch-id">120 ℜ</span>
-                        </div>
-                        <div class="arch-tag">БОКАЛ ~150 МЛ // МЕЛАНХОЛИЯ</div>
-                        <div class="arch-desc">Красный, как закат над Мартинезом, напиток. Вызывает непреодолимую тягу к поэзии, долгому молчанию и созерцанию дискошара.</div>
+                    <!-- ВИНО «КИНЕМОВСКОЕ» -->
+                    <div class="bar-sticker c-violet hover-trigger">
+                        <h3 class="bar-sticker-title">ВИНО «КИНЕМОВСКОЕ»</h3>
+                        <div class="bar-sticker-meta">БОКАЛ ~150 МЛ // МЕЛАНХОЛИЯ</div>
+                        <p class="bar-sticker-desc">Красный, как закат над Мартинезом. Тянет на поэзию.</p>
                     </div>
 
-                    <div class="arch intel hover-trigger">
-                        <div class="arch-top">
-                            <h3 class="arch-name">ТЕКИЛА САНСЕТ</h3>
-                            <span class="arch-id">180 ℜ</span>
-                        </div>
-                        <div class="arch-tag">КОКТЕЙЛЬ 200 МЛ // СУПЕРЗВЕЗДА</div>
-                        <div class="arch-desc">Классический микс цитрусового безумия и текилы. Фирменный выбор детективов, решивших окончательно стереть границы своего «Я».</div>
+                    <!-- ТЕКИЛА САНСЕТ -->
+                    <div class="bar-sticker c-cyan hover-trigger">
+                        <h3 class="bar-sticker-title">ТЕКИЛА САНСЕТ</h3>
+                        <div class="bar-sticker-meta">КОКТЕЙЛЬ 200 МЛ // СУПЕРЗВЕЗДА</div>
+                        <p class="bar-sticker-desc">Цитрусовое безумие для тех, кто стирает границы «Я».</p>
                     </div>
 
-                    <div class="arch phys hover-trigger">
-                        <div class="arch-top">
-                            <h3 class="arch-name">«ПАЛЁНАЯ МОРЕЛЛА»</h3>
-                            <span class="arch-id">200 ℜ</span>
-                        </div>
-                        <div class="arch-tag">ВИСКИ 50 МЛ // ДЫМНЫЙ ТОРФ</div>
-                        <div class="arch-desc">Крепкий торфяной дистиллят с ароматом сгоревших мостов, потерянных улик и надежд на светлое будущее. Согревает сердце на один час.</div>
+                    <!-- «ПАЛЁНАЯ МОРЕЛЛА» -->
+                    <div class="bar-sticker c-magenta hover-trigger">
+                        <h3 class="bar-sticker-title">«ПАЛЁНАЯ МОРЕЛЛА»</h3>
+                        <div class="bar-sticker-meta">ВИСКИ 50 МЛ // ДЫМНЫЙ ТОРФ</div>
+                        <p class="bar-sticker-desc">Торфяной дистиллят. Согревает сердце на час.</p>
                     </div>
 
-                    <div class="arch motor hover-trigger">
-                        <div class="arch-top">
-                            <h3 class="arch-name">БЕЗАЛКОГОЛЬНЫЙ ДЕТОКС</h3>
-                            <span class="arch-id">50 ℜ</span>
-                        </div>
-                        <div class="arch-tag">КОЛА / СОК // КИСЛОРОДНЫЙ РЕЗЕРВ</div>
-                        <div class="arch-desc">Спасительный ресурс для утомленного организма. Кола, спрайт или сок для тех, кто пытается удержать контроль над распадающимся телом.</div>
+                    <!-- БЕЗАЛКОГОЛЬНЫЙ ДЕТОКС -->
+                    <div class="bar-sticker c-detox hover-trigger">
+                        <h3 class="bar-sticker-title">БЕЗАЛКОГОЛЬНЫЙ ДЕТОКС</h3>
+                        <div class="bar-sticker-meta">КОЛА / СОК // КИСЛОРОДНЫЙ РЕЗЕРВ</div>
+                        <p class="bar-sticker-desc">Кола, спрайт, сок. Для тех, кто держит контроль.</p>
                     </div>
                 </div>
 
                 <div style="margin-top:2.5rem; text-align:center;">
-                    <p class="body-mono">Примечание: <strong>чистая минеральная вода</strong> отпускается в баре абсолютно бесплатно в любых объемах.</p>
+                    <div style="display: inline-block; padding: 0.75rem 1.5rem; border: 1px solid rgba(244, 236, 220, 0.12); background: rgba(244, 236, 220, 0.03); margin-bottom: 1rem;">
+                        <p class="body-mono" style="margin: 0; font-size: 1.25rem; font-weight: bold;">Полная карта бара — только внутри. Здесь — главные улики.</p>
+                    </div>
+                    <p class="body-mono">Примечание: <strong>чистая минеральная вода</strong> отпускается в баре в любых объемах.</p>
                 </div>
             </section>
 
@@ -327,186 +369,100 @@
             <section class="section-card reveal" id="reals" aria-labelledby="reals-title">
                 <div class="section-eyebrow c-lime">[ ДЕЛО №RCM-2026 // РАЗДЕЛ 03: ВАЛЮТА ]</div>
                 <h2 class="section-title" id="reals-title">Реалы Ревашоля</h2>
-                <p class="section-lead">Рубли остаются на входе. Внутри ходят только <em>реалы</em> — ℜ. Билет даёт стартовый баланс, костюм добавляет бонус, дальше крутись сам.</p>
-                
-                <p style="font-family: 'Spectral', serif; font-style: italic; color: var(--lime); font-size: 1.25rem; margin-bottom: 2.5rem;">
-                    ЛОГИКА: настоящие деньги ты уже потратил. <span style="color: var(--text-dim);">—</span> ЭЛЕКТРОХИМИЯ: вот и трать ненастоящие веселее.
-                </p>
+                <p class="section-lead">Внутри ходит только местная валюта — <em>реалы</em>. На них живёт весь Ревашоль: бар, аукцион, ночь целиком.</p>
 
-                <!-- 3 steps flow -->
-                <div class="thought-grid" style="margin-bottom: 3.5rem;">
-                    <div class="arch intel">
-                        <div class="arch-top">
-                            <h3 class="arch-name">01</h3>
-                            <span class="arch-id">ВХОД</span>
-                        </div>
-                        <div class="arch-tag">Платишь рублями</div>
-                        <div class="arch-desc">За пропуск, заранее на входе. Фиатные деньги идут на покрытие аренды, реквизита и базовых расходов.</div>
+                <!-- Chain flow container -->
+                <div class="real-chain">
+                    <div class="real-step s1">
+                        <div class="real-step-num">01</div>
+                        <div class="real-step-label">Вход</div>
+                        <div class="real-step-sub">«Конвертация»</div>
+                        <div class="real-step-body">На входе твои рубли превращаются в реалы — единственную валюту, которая тут чего-то стоит.</div>
                     </div>
-                    
-                    <div class="arch psyche">
-                        <div class="arch-top">
-                            <h3 class="arch-name">02</h3>
-                            <span class="arch-id">БАЛАНС</span>
-                        </div>
-                        <div class="arch-tag">Получаешь реалы (ℜ)</div>
-                        <div class="arch-desc">Стартовый баланс зависит от твоего тира. Дополнительный бонус до 500 ℜ начисляет «Черепомер» на входе за костюм.</div>
+
+                    <div class="real-arrow a1">
+                        <svg viewBox="0 0 34 34">
+                            <line class="line" x1="2" y1="17" x2="28" y2="17"/>
+                            <line class="pulse" x1="2" y1="17" x2="28" y2="17"/>
+                            <path class="head" d="M26 11 L34 17 L26 23 Z"/>
+                        </svg>
                     </div>
-                    
-                    <div class="arch phys">
-                        <div class="arch-top">
-                            <h3 class="arch-name">03</h3>
-                            <span class="arch-id">ОБОРОТ</span>
-                        </div>
-                        <div class="arch-tag">Тратишь и зарабатываешь</div>
-                        <div class="arch-desc">Бар, ставки в казино, музыка, блайнд-боксы. Зарабатывай реалы обратно, решая квесты или обыгрывая банк.</div>
+
+                    <div class="real-step s2">
+                        <div class="real-step-num">02</div>
+                        <div class="real-step-label">Баланс</div>
+                        <div class="real-step-sub">«Получаешь стартовый капитал»</div>
+                        <div class="real-step-body">Сколько реалов на руках с порога — зависит от билета.</div>
+                    </div>
+
+                    <div class="real-arrow a2">
+                        <svg viewBox="0 0 34 34">
+                            <line class="line" x1="2" y1="17" x2="28" y2="17"/>
+                            <line class="pulse" x1="2" y1="17" x2="28" y2="17"/>
+                            <path class="head" d="M26 11 L34 17 L26 23 Z"/>
+                        </svg>
+                    </div>
+
+                    <div class="real-step s3">
+                        <div class="real-step-num">03</div>
+                        <div class="real-step-label">Оборот</div>
+                        <div class="real-step-sub">«Тратишь и зарабатываешь»</div>
+                        <div class="real-step-body">Спустил всё? Отыграйся: квесты, казино и удача возвращают реалы в карман.</div>
                     </div>
                 </div>
 
-                <!-- Currency notes fan -->
-                <div class="bills-container">
-                    <div class="real-bill b10">
-                        <div class="bill-inner">
-                            <span class="lbl">RCM REALS</span>
-                            <span class="val">10ℜ</span>
-                        </div>
-                    </div>
-                    <div class="real-bill b50">
-                        <div class="bill-inner">
-                            <span class="lbl">RCM REALS</span>
-                            <span class="val">50ℜ</span>
-                        </div>
-                    </div>
-                    <div class="real-bill b100">
-                        <div class="bill-inner">
-                            <span class="lbl">RCM REALS</span>
-                            <span class="val">100ℜ</span>
-                        </div>
-                    </div>
-                    <div class="real-bill b500">
-                        <div class="bill-inner">
-                            <span class="lbl">RCM REALS</span>
-                            <span class="val">500ℜ</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Calculator: Твой вечер -->
-                <div class="dossier-box calc-box tech-frame" style="border-top-color: var(--lime);">
-                    <div class="tech-corner tl"></div>
-                    <div class="tech-corner tr"></div>
-                    <div class="tech-corner bl"></div>
-                    <div class="tech-corner br"></div>
-                    
-                    <h3 class="section-title" style="font-size: 2.2rem; margin-bottom: 1.5rem;">Калькулятор: Твой Вечер</h3>
-                    <p class="body-mono" style="margin-bottom: 2rem;">Спланируй свои траты в реалах заранее. Выбери свой статус и покрути ползунки.</p>
-                    
-                    <div class="calc-grid">
-                        <div class="calc-selectors">
-                            <!-- Tier Switches -->
-                            <div class="grade-switch" id="calcTierSwitch" role="group" aria-label="Выбор тира калькулятора">
-                                <button type="button" class="grade-pill hover-trigger" data-tier="Бродяга">
-                                    <span class="gn">600ℜ</span>Бродяга
-                                </button>
-                                <button type="button" class="grade-pill active hover-trigger" data-tier="Детектив">
-                                    <span class="gn">1000ℜ</span>Детектив
-                                </button>
-                                <button type="button" class="grade-pill hover-trigger" data-tier="Суперзвезда">
-                                    <span class="gn">2500ℜ</span>Суперзвезда
-                                </button>
-                            </div>
-                            
-                            <!-- Drinks Slider -->
-                            <div class="calc-slider-group">
-                                <div class="calc-slider-hdr">
-                                    <span class="lbl">Напитки в баре (150 ℜ)</span>
-                                    <span class="val" id="val-drinks">0 шт.</span>
-                                </div>
-                                <input type="range" class="calc-slider" id="calc-drinks" min="0" max="15" value="4">
-                            </div>
-                            
-                            <!-- Bets Slider -->
-                            <div class="calc-slider-group">
-                                <div class="calc-slider-hdr">
-                                    <span class="lbl">Ставки в казино (50 ℜ)</span>
-                                    <span class="val" id="val-bets">0 шт.</span>
-                                </div>
-                                <input type="range" class="calc-slider" id="calc-bets" min="0" max="20" value="5">
-                            </div>
-                            
-                            <!-- Phone Slider -->
-                            <div class="calc-slider-group">
-                                <div class="calc-slider-hdr">
-                                    <span class="lbl">Аренда телефона</span>
-                                    <span class="val" id="val-phone">Нет</span>
-                                </div>
-                                <input type="range" class="calc-slider" id="calc-phone" min="0" max="2" value="1">
-                            </div>
-                            
-                            <!-- Extras Slider -->
-                            <div class="calc-slider-group">
-                                <div class="calc-slider-hdr">
-                                    <span class="lbl">Музыка и подарки (250 ℜ)</span>
-                                    <span class="val" id="val-extras">0 шт.</span>
-                                </div>
-                                <input type="range" class="calc-slider" id="calc-extras" min="0" max="10" value="1">
-                            </div>
-                        </div>
-                        
-                        <div class="calc-results">
-                            <div>
-                                <div class="calc-balance-title">ОСТАТОК В КАРМАНЕ</div>
-                                <div class="calc-balance-val" id="calcLeftover">1 000<span class="cur"> ℜ</span></div>
-                                <p class="body-mono" style="font-size: 0.85rem; color: var(--text-dim); line-height: 1.5;">Следи за балансом. В минус уходить нельзя — придется зарабатывать реалы детективным трудом или брать в долг у Черепомера.</p>
-                            </div>
-                            
-                            <div>
-                                <div class="calc-balance-title" style="margin-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 1rem;">РАСКЛАДКА РАСХОДОВ</div>
-                                <ul class="calc-breakdown-list" id="calcBreakdown">
-                                    <!-- Populated dynamically via JS -->
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <p style="font-family: 'Spectral', serif; font-style: italic; color: var(--lime); margin-top: 2rem; font-size: 1.1rem; text-align: center;">
-                        Кончились реалы? Так и было задумано. Зарабатывай.
+                <!-- Key Message Callout -->
+                <div style="border-left: 3px solid var(--amber); border-right: 1px solid rgba(244, 236, 220, 0.08); border-top: 1px solid rgba(244, 236, 220, 0.08); border-bottom: 1px solid rgba(244, 236, 220, 0.08); padding: 1.25rem 1.75rem; margin: 2.2rem 0; background: rgba(255, 176, 46, 0.02); text-align: center;">
+                    <p style="font-family: 'Fraunces', serif; font-style: italic; font-size: 1.15rem; line-height: 1.5; color: var(--paper); margin: 0;">
+                        Реалы за бар — это деньги, которые ты уже занёс билетом. Остаётся только тратить и проигрывать, зарабатывать или конвертировать и вновь тратить.
                     </p>
                 </div>
             </section>
 
             <!-- ============ 4. BUDGET SECTION ============ -->
             <section class="section-card reveal" id="budget" aria-labelledby="budget-title">
+                <div class="section-eyebrow c-amber">[ ДЕЛО №RCM-2026 // РАЗДЕЛ 04: БЮДЖЕТ ]</div>
+                <h2 class="section-title" id="budget-title">ДВЕ ВЕРСИИ НОЧИ</h2>
+                
+                <p class="section-lead">Две версии ночи. Какая случится — решает сбор. На этом никто не зарабатывает: организаторы уходят минимум в <em>−60 000 ₽</em> из своего кармана, а билеты лишь частично отбивают расходы.</p>
+
+                <!-- Instruction label above switcher -->
+                <div class="grade-toggle-hint">
+                    <span class="ar" id="ar">⇄</span> ПЕРЕКЛЮЧИ ГРЕЙД
+                </div>
+
+                <!-- Dynamic Grade Switchers (TUMBLER full-width) -->
+                <div class="grade-toggle" id="budgetToggle" data-active="1" role="group" aria-label="Выбор грейда">
+                    <div class="grade-toggle-thumb"></div>
+                    <div class="grade-toggle-half h1" data-g="1">
+                        <div class="g-name">Грейд 1</div>
+                        <div class="g-sub">«Бедность не порок»</div>
+                    </div>
+                    <div class="grade-toggle-half h2" data-g="2">
+                        <div class="g-name">Грейд 2</div>
+                        <div class="g-sub">«Электрохимия»</div>
+                    </div>
+                    <div class="grade-toggle-center">⇄</div>
+                </div>
+
                 <div class="budget-layout">
                     <div class="budget-left">
-                        <div class="section-eyebrow c-amber">[ ДЕЛО №RCM-2026 // РАЗДЕЛ 04: БЮДЖЕТ ]</div>
-                        <h2 class="section-title" id="budget-title">Куда уходят<br>деньги</h2>
-                        
-                        <p class="section-lead">Две версии вечеринки. Какая случится — решает сбор. Орги уже вложили <em>60 000 ₽</em> личного взноса.</p>
-
-                        <!-- Dynamic Grade Switchers (using data attribute triggers) -->
-                        <div class="grade-switch" role="group" aria-label="Выбор грейда">
-                            <button type="button" class="grade-pill active hover-trigger" data-grade="1">
-                                <span class="gn">Г1</span>Бедность не порок
-                            </button>
-                            <button type="button" class="grade-pill hover-trigger" data-grade="2">
-                                <span class="gn">Г2</span>Электрохимия
-                            </button>
-                        </div>
-
-                        <div class="budget-total">
-                            <div class="lbl">Полный бюджет</div>
+                        <div class="budget-total" style="margin-bottom: 0; border-bottom: none; padding-bottom: 0;">
+                            <div class="lbl">ПОЛНАЯ СТОИМОСТЬ</div>
                             <div class="num" id="bTotal">127 500<span class="cur"> ₽</span></div>
-                            <div class="sub" id="bSub">20 ЧЕЛОВЕК · 1 НОЧЬ</div>
+                            <div class="sub" id="bSub">СТОИМОСТЬ ВСЕЙ НОЧИ · 20 ЧЕЛОВЕК</div>
                         </div>
 
-                        <div class="budget-contrib">
-                            <div class="lbl">К сбору с гостей</div>
-                            <div class="val" id="bContrib">67 500 ₽ — примерно 3 375 ₽ с человека</div>
+                        <!-- Механика отката (врезом) -->
+                        <div class="rollback-warning" style="border-left: 3px solid var(--accent); border-right: 1px solid rgba(244, 236, 220, 0.08); border-top: 1px solid rgba(244, 236, 220, 0.08); border-bottom: 1px solid rgba(244, 236, 220, 0.08); padding: 1.25rem 1.5rem; margin-top: 1.5rem; background: rgba(155, 60, 255, 0.02); text-align: left; transition: border-color 0.4s;">
+                            <p style="font-family: 'Fraunces', serif; font-style: italic; font-size: 1.1rem; line-height: 1.5; color: var(--paper); margin: 0;">
+                                Соберём полную сумму Грейда 2 за месяц до даты — гуляем по-крупному. Не доберём — будет Грейд 1: все механики на месте, просто чуть скромнее.
+                            </p>
                         </div>
                     </div>
-                    <div class="budget-right dossier-box">
-                        <div class="budget-cats" id="bCats">
+                    <div class="budget-right dossier-box" id="budgetCard">
+                        <h4 class="body-mono" style="font-size: 1.1rem; color: var(--accent); margin-bottom: 1.2rem; text-transform: uppercase; font-weight: bold; border-bottom: 1px solid rgba(255,255,255,0.08); padding-bottom: 0.6rem; transition: color 0.4s;">ЧТО ВКЛЮЧЕНО</h4>
+                        <div id="bWhatIncluded">
                             <!-- Populated dynamically via JS -->
                         </div>
                     </div>
@@ -520,24 +476,72 @@
 
                 <div class="progress-layout">
                     <div class="progress-left">
-                        <div class="prog-headline" id="pCollected">82 100<span class="cur"> ₽</span></div>
-                        <div class="prog-of">из 178 400 ₽ на полный Грейд 2 · обновлено 27 мая</div>
+                        <div class="prog-headline" id="pCollected">77 000<span class="cur"> ₽</span></div>
                         
-                        <p class="body-mono" style="font-size: 0.9rem;">Не доберём Г2 до 6 июня — спокойный Г1 на 20 человек, разница возвращается за 3 дня. <strong>План Б — это не поражение, а проверенный пилот.</strong></p>
+                        <div class="progress-goals-info" style="margin: 1.2rem 0 1.5rem; font-family: 'JetBrains Mono', monospace; line-height: 1.6;">
+                            <div style="font-size: 1.1rem; font-weight: bold; display: flex; flex-wrap: wrap; gap: 1.5rem; margin-bottom: 0.5rem;">
+                                <span id="pGoalG1Text" style="color: var(--amber);">ГРЕЙД 1 — 127 500 ₽</span>
+                                <span id="pGoalG2Text" style="color: var(--cyan);">ГРЕЙД 2 — 238 400 ₽</span>
+                            </div>
+                            <div id="pUpdateStamp" style="font-size: 0.72rem; color: var(--paper-dim); letter-spacing: 0.08em; text-transform: uppercase;">
+                                ОБНОВЛЯЕТСЯ КАЖДУЮ НЕДЕЛЮ · ОБНОВЛЕНО · 6 ИЮНЯ
+                            </div>
+                        </div>
+                        
+                        <p class="body-mono" style="font-size: 0.9rem; margin-bottom: 0.8rem; line-height: 1.5;">Старт дали сами организаторы — 60 000 ₽ уже в банке, и первые пропуска куплены. Дальше собираем вместе. Решение о грейде — 15 июля: добираем цель Г2 — гуляем по-крупному, нет — будет Г1 на 20 человек, тоже настоящая ночь.</p>
+                        <p class="body-mono" style="font-size: 0.9rem; line-height: 1.5; color: var(--paper-dim);">После вечеринки выложим полный финансовый отчёт.</p>
                     </div>
                     <div class="progress-right">
                         <div class="prog-stats">
-                            <div class="prog-stat"><span class="n">14</span><span class="l">купили<br>пропуск</span></div>
-                            <div class="prog-stat"><span class="n">10</span><span class="l">дней до<br>решения</span></div>
-                            <div class="prog-stat"><span class="n">46<span class="pct">%</span></span><span class="l">от цели<br>Г2</span></div>
+                            <!-- Card 1: Buyers (lime) -->
+                            <div class="prog-stat c-lime" id="pCardBuyers">
+                                <div class="stat-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--lime)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/>
+                                        <path d="M13 5v2"/><path d="M13 17v2"/><path d="M13 11v2"/>
+                                    </svg>
+                                </div>
+                                <div class="n" id="pBuyers">3</div>
+                                <div class="l">купили<br>пропуск</div>
+                            </div>
+                            
+                            <!-- Card 2: Days (amber, featured) -->
+                            <div class="prog-stat c-amber featured" id="pCardDays">
+                                <div class="stat-icon">
+                                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M5 2h14"/><path d="M5 22h14"/>
+                                        <path d="M19 2v4c0 1.38-1.13 2.5-2.51 3L12 12l-4.49-3C6.13 8.5 5 7.38 5 6V2"/>
+                                        <path d="M5 22v-4c0-1.38 1.13-2.5 2.51-3L12 12l4.49 3c1.38.5 2.51 1.62 2.51 3v4"/>
+                                    </svg>
+                                </div>
+                                <div class="n" id="pDaysLeft" style="color: var(--amber); font-size: 1.8rem;">41</div>
+                                <div class="l" id="pDeadlineText">дней до<br>решения<br><small style="font-size: 0.65rem; opacity: 0.8; font-family: 'JetBrains Mono', monospace; font-weight: normal; text-transform: uppercase; margin-top: 4px; display: block; color: var(--amber);">дедлайн 15 июля</small></div>
+                            </div>
+                            
+                            <!-- Card 3: Percent (cyan circular chart) -->
+                            <div class="prog-stat c-cyan" id="pCardPercent">
+                                <div class="stat-icon-wrap" style="position: relative; width: 60px; height: 60px; margin: 0 auto 6px;">
+                                    <svg class="circular-progress" width="60" height="60" viewBox="0 0 60 60">
+                                        <circle class="bg" cx="30" cy="30" r="24" stroke="rgba(255,255,255,0.06)" stroke-width="3" fill="transparent" />
+                                        <circle class="fg" id="pCircleFg" cx="30" cy="30" r="24" stroke="var(--cyan)" stroke-width="3" fill="transparent" 
+                                                stroke-dasharray="150.8" stroke-dashoffset="150.8" stroke-linecap="round" transform="rotate(-90 30 30)" 
+                                                style="transition: stroke-dashoffset 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);" />
+                                    </svg>
+                                    <div class="n" id="pPercent" style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; color: var(--cyan);">32<span class="pct" style="font-size: 0.75rem;">%</span></div>
+                                </div>
+                                <div class="l">от цели<br>Г2</div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="prog-track" style="margin-top: 3.5rem;" aria-hidden="true">
-                    <div class="prog-track-fill" id="pFill"></div>
-                    <div class="prog-mark" style="left:38%"><span class="flag">Г1</span><span class="amt">67,5к</span></div>
-                    <div class="prog-mark" style="left:89%"><span class="flag">Г2</span><span class="amt">178,4к</span></div>
+                    <div class="prog-track-fill" id="pFill" style="width: 0%;">
+                        <div class="prog-fill-label" id="pFillLabel">77 000 ₽</div>
+                    </div>
+                    <div class="prog-mark" id="pMarkOrg" style="left: 25.17%;"><span class="flag">Старт оргов</span><span class="amt">60к</span></div>
+                    <div class="prog-mark" id="pMarkG1" style="left: 53.48%;"><span class="flag">Г1</span><span class="amt">127,5к</span></div>
+                    <div class="prog-mark" id="pMarkG2" style="left: 100%;"><span class="flag">Г2</span><span class="amt">238,4к</span></div>
                 </div>
             </section>
 
@@ -547,59 +551,124 @@
                 <h2 class="section-title" id="teasers-title">Улики<br>с места</h2>
                 
                 <p class="section-lead">Всех подробностей не разглашаем. Но кое-что <em>просочилось</em>.</p>
+                
+                <p class="evidence-hint">▸ наведи или коснись — улика раскроется</p>
 
-                <div class="teaser-grid">
-                    <div class="tcard casino hover-trigger">
-                        <div class="glow"></div>
-                        <div class="ticon">♣</div>
-                        <h3 class="tname">Казино</h3>
-                        <div class="tsub">основной пылесос реалов</div>
+                <div class="evidence-grid">
+
+                    <!-- 1. Танец с Бледностью — крупная (tall) -->
+                    <div class="evidence-card ev-violet span-tall hover-trigger" tabindex="0">
+                        <span class="ev-ticks"></span>
+                        <div class="ev-icon">✦</div>
+                        <div class="ev-body">
+                            <h3 class="ev-name">Танец<br>с Бледностью</h3>
+                            <div class="ev-redact">данные изъяты</div>
+                            <div class="ev-desc">В глухой час ночи гаснет весь свет. Остаётся только дискошар и один трек. Что происходит дальше — не для протокола.</div>
+                        </div>
                     </div>
-                    <div class="tcard auction hover-trigger">
-                        <div class="glow"></div>
-                        <div class="ticon">⚒</div>
-                        <h3 class="tname">Аукцион</h3>
-                        <div class="tsub">3 эксклюзивных лота</div>
+
+                    <!-- 2. Казино -->
+                    <div class="evidence-card ev-cyan hover-trigger" tabindex="0">
+                        <span class="ev-ticks"></span>
+                        <div class="ev-icon">♣</div>
+                        <div class="ev-body">
+                            <h3 class="ev-name">Казино</h3>
+                            <div class="ev-redact">данные изъяты</div>
+                            <div class="ev-desc">Кости, карты, ставки в реалах. Главный пылесос ночи. Открыто до утра.</div>
+                        </div>
                     </div>
-                    <div class="tcard disco hover-trigger">
-                        <div class="glow"></div>
-                        <div class="ticon">●</div>
-                        <h3 class="tname">Дискошар</h3>
-                        <div class="tsub">обязателен · весь вечер</div>
+
+                    <!-- 3. Аукцион -->
+                    <div class="evidence-card ev-amber hover-trigger" tabindex="0">
+                        <span class="ev-ticks"></span>
+                        <div class="ev-icon">⚒</div>
+                        <div class="ev-body">
+                            <h3 class="ev-name">Аукцион</h3>
+                            <div class="ev-redact">данные изъяты</div>
+                            <div class="ev-desc">Три лота с молотка. Один из них — загадка даже для нас.</div>
+                        </div>
                     </div>
-                    <div class="tcard button hover-trigger">
-                        <div class="glow"></div>
-                        <div class="ticon">?</div>
-                        <h3 class="tname">Кнопка гойского гоя</h3>
-                        <div class="tsub">200 ℜ · эффект неизвестен</div>
+
+                    <!-- 4. Ачивки -->
+                    <div class="evidence-card ev-cyan hover-trigger" tabindex="0">
+                        <span class="ev-ticks"></span>
+                        <div class="ev-icon">★</div>
+                        <div class="ev-body">
+                            <h3 class="ev-name">Ачивки</h3>
+                            <div class="ev-redact">данные изъяты</div>
+                            <div class="ev-desc">Физические карточки за подвиги ночи. Собери больше всех.</div>
+                        </div>
                     </div>
-                    <div class="tcard photo hover-trigger">
-                        <div class="glow"></div>
-                        <div class="ticon">⌗</div>
-                        <h3 class="tname">Фотозона</h3>
-                        <div class="tsub">«ты — суперзвезда-коп»</div>
+
+                    <!-- 5. Слушаем наше дыхание -->
+                    <div class="evidence-card ev-lime hover-trigger" tabindex="0">
+                        <span class="ev-ticks"></span>
+                        <div class="ev-icon">☣</div>
+                        <div class="ev-body">
+                            <h3 class="ev-name">Слушаем наше дыхание</h3>
+                            <div class="ev-redact">данные изъяты · допуск ограничен</div>
+                            <div class="ev-desc">Сюрстрёмминг. Испытание не для слабых. Строго добровольно.<br>О подробностях умолчим.</div>
+                        </div>
                     </div>
-                    <div class="tcard karaoke hover-trigger">
-                        <div class="glow"></div>
-                        <div class="ticon">♪</div>
-                        <h3 class="tname">Караоке</h3>
-                        <div class="tsub">премия аплодисментами</div>
+
+                    <!-- 6. Дискошар — широкая (wide) -->
+                    <div class="evidence-card ev-cyan span-wide hover-trigger" tabindex="0">
+                        <span class="ev-ticks"></span>
+                        <div class="ev-icon">●</div>
+                        <div class="ev-body">
+                            <h3 class="ev-name">Дискошар</h3>
+                            <div class="ev-redact">подтверждено</div>
+                            <div class="ev-desc">Обязателен. Работает весь вечер. Не выключается до рассвета.</div>
+                        </div>
                     </div>
-                    <div class="tcard skull hover-trigger">
-                        <div class="glow"></div>
-                        <div class="ticon">☠</div>
-                        <h3 class="tname">Черепомер</h3>
-                        <div class="tsub">эталон случаен</div>
+
+                    <!-- 7. Кнопка гойского гоя -->
+                    <div class="evidence-card ev-magenta hover-trigger" tabindex="0">
+                        <span class="ev-ticks"></span>
+                        <div class="ev-icon">?</div>
+                        <div class="ev-body">
+                            <h3 class="ev-name">Кнопка<br>гойского гоя</h3>
+                            <div class="ev-redact">эффект неизвестен</div>
+                            <div class="ev-desc">??????????</div>
+                        </div>
                     </div>
-                    <div class="tcard ach hover-trigger">
-                        <div class="glow"></div>
-                        <div class="ticon">★</div>
-                        <h3 class="tname">Ачивки</h3>
-                        <div class="tsub">физические карточки</div>
+
+                    <!-- 8. Черепомер -->
+                    <div class="evidence-card ev-lime hover-trigger" tabindex="0">
+                        <span class="ev-ticks"></span>
+                        <div class="ev-icon">☠</div>
+                        <div class="ev-body">
+                            <h3 class="ev-name">Черепомер</h3>
+                            <div class="ev-redact">данные изъяты</div>
+                            <div class="ev-desc">Измерит твой череп с серьёзным лицом. Эталон выбран случайно.</div>
+                        </div>
                     </div>
+
+                    <!-- 9. Фотозона -->
+                    <div class="evidence-card ev-amber hover-trigger" tabindex="0">
+                        <span class="ev-ticks"></span>
+                        <div class="ev-icon">#</div>
+                        <div class="ev-body">
+                            <h3 class="ev-name">Фотозона</h3>
+                            <div class="ev-redact">данные изъяты</div>
+                            <div class="ev-desc">«Ты — суперзвезда-коп». Реквизит прилагается, снимок — полароидом.</div>
+                        </div>
+                    </div>
+
+                    <!-- 10. Караоке -->
+                    <div class="evidence-card ev-magenta hover-trigger" tabindex="0">
+                        <span class="ev-ticks"></span>
+                        <div class="ev-icon">♪</div>
+                        <div class="ev-body">
+                            <h3 class="ev-name">Караоке</h3>
+                            <div class="ev-redact">данные изъяты</div>
+                            <div class="ev-desc">Чем неуместнее песня — тем громче овация. Премия выдаётся аплодисментами.</div>
+                        </div>
+                    </div>
+
                 </div>
 
-                <p class="teaser-more">...и ещё несколько штук, о которых не скажем.</p>
+                <p class="evidence-outro">…и ещё несколько штук, о которых не скажем.</p>
             </section>
 
             <!-- ============ 7. TICKETS SECTION ============ -->
@@ -620,11 +689,10 @@
                             <li>Базовая программа</li>
                         </ul>
                         <!-- Dynamic Checkout Triggers -->
-                        <button class="tix-btn" data-name="Бродяга" data-price="2 000 ₽">Запросить пропуск</button>
+                        <a class="tix-btn" href="https://t.me/Inland_Imperialist?text=%D0%A5%D0%BE%D1%87%D1%83%20%D0%BF%D1%80%D0%BE%D0%BF%D1%83%D1%81%D0%BA%20%C2%AB%D0%91%D1%80%D0%BE%D0%B4%D1%8F%D0%B3%D0%B0%C2%BB%20%D0%BD%D0%B0%20Disco%20Elysium%20Party" target="_blank" rel="noopener">Запросить пропуск</a>
                     </div>
 
                     <div class="tix featured hover-trigger">
-                        <div class="tix-badge">ТОП</div>
                         <h3 class="tix-name">ДЕТЕКТИВ</h3>
                         <div class="tix-tag">«У тебя есть деньги и статус — но маловато»</div>
                         <div class="tix-price-row"><span class="tix-price">3 000</span><span class="tix-cur">₽</span></div>
@@ -634,21 +702,25 @@
                             <li>Ачивка-карта детектива</li>
                             <li>Газета Ревашоля №1</li>
                         </ul>
-                        <button class="tix-btn" data-name="Детектив" data-price="3 000 ₽">Запросить пропуск</button>
+                        <a class="tix-btn" href="https://t.me/Inland_Imperialist?text=%D0%A5%D0%BE%D1%87%D1%83%20%D0%BF%D1%80%D0%BE%D0%BF%D1%83%D1%81%D0%BA%20%C2%AB%D0%94%D0%B5%D1%82%D0%B5%D0%BA%D1%82%D0%B8%D0%B2%C2%BB%20%D0%BD%D0%B0%20Disco%20Elysium%20Party" target="_blank" rel="noopener">Запросить пропуск</a>
                     </div>
 
-                    <div class="tix hover-trigger">
-                        <h3 class="tix-name">СУПЕРЗВЕЗДА</h3>
+                    <div class="tix superstar hover-trigger">
+                        <div class="tix-badge vip-badge">VIP</div>
+                        <h3 class="tix-name"><span style="color: var(--amber-hot); margin-right: 6px;">★</span>СУПЕРЗВЕЗДА</h3>
                         <div class="tix-tag">«Ого, суперзвезда, все хотят с тобой тусить!»</div>
                         <div class="tix-price-row"><span class="tix-price">7 000</span><span class="tix-cur">₽</span></div>
                         <ul class="tix-incl">
                             <li>Вход</li>
-                            <li>2500 реалов на старте (ℜ)</li>
-                            <li>Ачивка-карта + газета</li>
+                            <li>2500 реалов на старте</li>
+                            <li>Ачивка-карта суперзвезды</li>
+                            <li>Газета Ревашоля №1</li>
+                            <li>Стартовый набор в баре</li>
                             <li>Плакат с твоим лицом в декорациях</li>
                             <li>Приоритетное внимание</li>
+                            <li>Высокий X-Factor</li>
                         </ul>
-                        <button class="tix-btn" data-name="Суперзвезда" data-price="7 000 ₽">Запросить пропуск</button>
+                        <a class="tix-btn" href="https://t.me/Inland_Imperialist?text=%D0%A5%D0%BE%D1%87%D1%83%20%D0%BF%D1%80%D0%BE%D0%BF%D1%83%D1%81%D0%BA%20%C2%AB%D0%A1%D1%83%D0%BF%D0%B5%D1%80%D0%B7%D0%B2%D0%B5%D0%B7%D0%B4%D0%B0%C2%BB%20%D0%BD%D0%B0%20Disco%20Elysium%20Party" target="_blank" rel="noopener">Запросить пропуск</a>
                     </div>
                 </div>
             </section>
@@ -662,49 +734,41 @@
                 <div style="margin-bottom: 3.5rem;">
                     <!-- Question 1 -->
                     <details class="dossier-box hover-trigger" style="border-top: none; border-left: 2px solid var(--cyan-hot); padding: 0; margin-bottom: 1rem;">
-                        <summary>Во сколько и докуда?</summary>
+                        <summary>Во сколько и где?</summary>
                         <div class="faq-content">
-                            Сбор гостей начинается в 17:00 в субботу, 20 июня. Программа и активность продлятся до самого утра воскресенья. Локация расположена в Московской области. Точный адрес, маршруты и инструкции по логистике будут направлены лично в мессенджер после подтверждения участия и оплаты пропуска.
+                            Сбор гостей начинается в 17:00 в субботу, 15 августа. Программа и активность продлятся до самого утра воскресенья. Точный адрес, маршруты и инструкции по логистике будут направлены лично в мессенджер незадолго до события.
                         </div>
                     </details>
 
                     <!-- Question 2 -->
                     <details class="dossier-box hover-trigger" style="border-top: none; border-left: 2px solid var(--cyan-hot); padding: 0; margin-bottom: 1rem;">
-                        <summary>Что брать с собой?</summary>
+                        <summary>Можно ли привести +1/друга?</summary>
                         <div class="faq-content">
-                            В первую очередь — себя в проработанном образе (определи свой архетип в Разделе 02). Возьми с собой наличные рубли, если на месте захочешь докупить реалы (по официальному курсу банка Г2). Если ты остаешься на ночь — обязательно захвати сменную удобную обувь/тапочки. И помни: телефон придется временно сдать на входе.
+                            Да, но по согласованию. Ваш +1 должен также запросить пропуск. К сожалению, организаторы не могут гарантировать, что заявка будет одобрена, поскольку есть ограничение по числу людей, исходящее из логики активностей и общего контекста ивента.
                         </div>
                     </details>
 
                     <!-- Question 3 -->
                     <details class="dossier-box hover-trigger" style="border-top: none; border-left: 2px solid var(--cyan-hot); padding: 0; margin-bottom: 1rem;">
-                        <summary>Что с телефоном?</summary>
+                        <summary>Можно не пить алкоголь?</summary>
                         <div class="faq-content">
-                            Для полного погружения все средства связи на входе упаковываются в индивидуальные опечатанные пакеты с номером дела и помещаются в сейф. Если тебе срочно потребуется связь — ты можешь выкупить свой гаджет на баре за реалы: 200 ℜ за 15 минут или 800 ℜ за 1 час. <em>СИЛА ВОЛИ против ЭЛЕКТРОХИМИИ — решать тебе.</em>
+                            Разумеется. В баре Ревашоля есть лимонады, соки и прохладительные напитки. Вся квестовая и сюжетная механика отлично проходится на трезвую и ясную голову.
                         </div>
                     </details>
 
                     <!-- Question 4 -->
                     <details class="dossier-box hover-trigger" style="border-top: none; border-left: 2px solid var(--cyan-hot); padding: 0; margin-bottom: 1rem;">
-                        <summary>Можно не пить?</summary>
+                        <summary>Можно остаться ночевать?</summary>
                         <div class="faq-content">
-                            Абсолютно. В баре Ревашоля чистая минеральная вода предоставляется бесплатно и без ограничений. Также в меню есть безалкогольные лимонады, соки и прохладительные напитки. Вся квестовая и сюжетная механика отлично проходится на трезвую и ясную голову.
+                            Эта опция предусмотрена — с вами свяжется один из организаторов незадолго до ивента. Утром всех уцелевших бродяг, детективов и суперзвезд ждет кофе, завтрак и специальный похмельный стафф от организаторов для восстановления сил.
                         </div>
                     </details>
 
                     <!-- Question 5 -->
                     <details class="dossier-box hover-trigger" style="border-top: none; border-left: 2px solid var(--cyan-hot); padding: 0; margin-bottom: 1rem;">
-                        <summary>Можно остаться ночевать?</summary>
+                        <summary>Я почти никого не знаю, это ок?</summary>
                         <div class="faq-content">
-                            Да, арендованный коттедж просторный и располагает достаточным количеством спальных мест. Утром всех выживших детективов ждет свежесваренный кофе, горячий завтрак и специальный похмельный стафф от организаторов для бережного восстановления сил.
-                        </div>
-                    </details>
-
-                    <!-- Question 6 -->
-                    <details class="dossier-box hover-trigger" style="border-top: none; border-left: 2px solid var(--cyan-hot); padding: 0; margin-bottom: 1rem;">
-                        <summary>Я никого не знаю, это ок?</summary>
-                        <div class="faq-content">
-                            Это идеальный расклад. Поскольку все гости находятся в образах своих персонажей-детективов, процесс знакомства, допросов, кооперации и совместного прохождения квестов является естественной частью игры. Ты быстро найдешь напарников по расследованию.
+                            Да. Поскольку все гости находятся в образах диско-детективов, процесс знакомства, алкогольной кооперации и совместного прохождения квестов является естественной частью ивента.
                         </div>
                     </details>
                 </div>
@@ -718,9 +782,8 @@
                     
                     <div class="lbl" style="color: var(--cyan-hot); margin-bottom: 0.6rem;">ГАРАНТИИ И ВОЗВРАТЫ</div>
                     <div class="body-mono" style="font-size: 0.95rem; line-height: 1.6; color: var(--paper-dim);">
-                        <p style="margin-bottom: 0.8rem;">◆ <strong>Не доберём на Грейд 2:</strong> Спокойно проводим Грейд 1 на 20 человек. Всю разницу в стоимости пропусков возвращаем гостям в течение 3 дней после фиксации бюджета (6 июня).</p>
                         <p style="margin-bottom: 0.8rem;">◆ <strong>Полная отмена события:</strong> В случае форс-мажора гарантируем 100% возврат всех внесенных средств в течение 7 дней.</p>
-                        <p>◆ <strong>Финансовая прозрачность:</strong> После завершения вечеринки все гости получат детальный публичный отчет о расходах. Каждый потраченный рубль будет как на ладони.</p>
+                        <p>◆ <strong>Финансовая прозрачность:</strong> После завершения вечеринки все гости получат детальный публичный отчет о расходах.</p>
                     </div>
                 </div>
             </section>
@@ -729,61 +792,58 @@
             <section class="section-card reveal" id="crew" aria-labelledby="crew-title">
                 <div class="section-eyebrow c-violet">[ ДЕЛО №RCM-2026 // ПОДПИСИ ДЕЛА ]</div>
                 <h2 class="section-title" id="crew-title">Оперативная группа</h2>
-                <p class="section-lead">Организаторы расследования и <em>кураторы твоего безумия</em> на этой вилле.</p>
+                <p class="section-lead">Организаторы расследования и <em>кураторы твоего безумия</em>.</p>
                 
-                <div class="crew-stack">
-                    <!-- Crew 1 -->
-                    <div class="crew-card dossier-box hover-trigger" style="border-top-color: var(--cyan);">
-                        <div class="tech-corner tl"></div>
-                        <div class="tech-corner tr"></div>
-                        <div class="tech-corner bl"></div>
-                        <div class="tech-corner br"></div>
-                        <div class="name">ИЛЬЯ ГОРБУНОВ</div>
-                        <div class="role">Финансовый отдел РКМ</div>
-                        <div class="desc">Сводит сметы, распределяет реалы и следит за тем, чтобы экономика и бар дышали полной грудью.</div>
+                <div class="crew-registry">
+                    <!-- Row 1: Павел Суханов -->
+                    <div class="crew-row hover-trigger" style="--row-accent: var(--magenta);">
+                        <div class="crew-left">
+                            <span class="crew-dot"></span>
+                            <span class="crew-name">ПАВЕЛ СУХАНОВ</span>
+                        </div>
+                        <span class="crew-role">Финансовый отдел РКМ</span>
                     </div>
 
-                    <!-- Crew 2 -->
-                    <div class="crew-card dossier-box hover-trigger" style="border-top-color: var(--magenta);">
-                        <div class="tech-corner tl"></div>
-                        <div class="tech-corner tr"></div>
-                        <div class="tech-corner bl"></div>
-                        <div class="tech-corner br"></div>
-                        <div class="name">ПАВЕЛ СУХАНОВ</div>
-                        <div class="role">Отдел особо тяжелых дел</div>
-                        <div class="desc">Автор закрученных квестов про сюрстрёмминг и Ревашольские тайны. О селёдке с ним лучше не спорить.</div>
+                    <!-- Row 2: Илья Горбунов -->
+                    <div class="crew-row hover-trigger" style="--row-accent: var(--cyan);">
+                        <div class="crew-left">
+                            <span class="crew-dot"></span>
+                            <span class="crew-name">ИЛЬЯ ГОРБУНОВ</span>
+                        </div>
+                        <span class="crew-role">Бюро цифрового шума</span>
                     </div>
 
-                    <!-- Crew 3 -->
-                    <div class="crew-card dossier-box hover-trigger" style="border-top-color: var(--amber);">
-                        <div class="tech-corner tl"></div>
-                        <div class="tech-corner tr"></div>
-                        <div class="tech-corner bl"></div>
-                        <div class="tech-corner br"></div>
-                        <div class="name">ДАРИЯ МАЛИЦКАЯ</div>
-                        <div class="role">Отдел атмосферы и улик</div>
-                        <div class="desc">Отвечает за то, чтобы вилла выглядела как заброшенные декорации диско-апокалипсиса в Мартинезе.</div>
+                    <!-- Row 3: Дария Малицкая -->
+                    <div class="crew-row hover-trigger" style="--row-accent: var(--amber);">
+                        <div class="crew-left">
+                            <span class="crew-dot"></span>
+                            <span class="crew-name">ДАРИЯ МАЛИЦКАЯ</span>
+                        </div>
+                        <span class="crew-role">Отдел атмосферы и улик</span>
                     </div>
                 </div>
 
-                <div class="body-mono" style="margin-top: 3rem; text-align: center; font-size: 0.9rem; color: var(--text-dim);">
-                    ДЕЛО №RCM-2026/06-20 · подписано составом оперативной группы
+                <div class="body-mono" style="margin-top: 3rem; text-align: center; font-size: 0.85rem; color: var(--text-faded); font-family: 'JetBrains Mono', monospace; letter-spacing: 0.05em;">
+                    ДЕЛО №RCM-2026/06-06 · подписано составом оперативной группы
                 </div>
             </section>
         </main>
 
         <!-- ============ FOOTER SECTION ============ -->
         <footer class="footer reveal">
-            <h2 class="footer-title">До встречи<br>в Ревашоле</h2>
-            <p class="footer-sub">20 июня. Одевайся медленно.</p>
+            <h2 class="footer-title">Двери откроются</h2>
+            <p class="footer-sub">15 августа. Приходи тем, кем хочешь быть.</p>
             
             <div class="footer-links">
-                <a class="footer-link hover-trigger" href="#" data-alert="Откроет канал в Telegram"><span>Канал в Telegram</span><span>→</span></a>
-                <a class="footer-link hover-trigger" href="#" data-alert="Откроет чат гостей"><span>Чат гостей</span><span>→</span></a>
-                <a class="footer-link hover-trigger" href="#" data-alert="Личка организатора"><span>Личка организатора</span><span>→</span></a>
+                <a class="footer-cta-btn hover-trigger" href="https://t.me/disco_logs" target="_blank" rel="noopener" data-alert="Следить за делом в Telegram-канале">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" class="tg-icon" aria-hidden="true">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.18-.08-.04-.19-.01-.27.01-.12.02-1.95 1.23-5.5 3.63-.52.36-1 .53-1.42.52-.47-.01-1.37-.26-2.03-.48-.82-.27-1.47-.42-1.42-.88.03-.24.35-.49.96-.74 3.78-1.64 6.3-2.72 7.56-3.25 3.59-1.51 4.34-1.77 4.83-1.78.11 0 .35.03.5.16.13.12.17.29.18.42 0 .07-.01.25-.02.31z"/>
+                    </svg>
+                    <span>Следить за делом в Telegram-канале</span>
+                </a>
             </div>
             
-            <p class="footer-credit">ДЕЛО №RCM-2026/06-20<br>организаторы: И. Кицур · П. Суханов</p>
+            <!-- Removed bottom line as requested -->
         </footer>
     </div>
 
