@@ -233,17 +233,33 @@
     font-size: 4.4rem;
     font-weight: 700;
     color: var(--paper);
-    display: block;
+    display: inline-block;
+    position: relative;
+    padding: 0 0.4em;
     line-height: 1;
     letter-spacing: 0.03em;
     text-shadow: 0 0 10px rgba(244, 236, 220, 0.35), 0 0 22px rgba(108, 245, 245, 0.25), 0 0 35px rgba(255, 31, 143, 0.2);
+    white-space: nowrap;
 }
 
-.hero-meta-date .date-decor {
+.hero-meta-date .date-value::before,
+.hero-meta-date .date-value::after {
     color: var(--cyan-hot);
     font-weight: 300;
     text-shadow: 0 0 15px rgba(108, 245, 245, 0.7);
-    margin: 0 0.2rem;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.hero-meta-date .date-value::before {
+    content: '[';
+    left: 0;
+}
+
+.hero-meta-date .date-value::after {
+    content: ']';
+    right: 0;
 }
 
 .hero-meta-date .date-label {
