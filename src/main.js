@@ -45,18 +45,6 @@ window.addEventListener('scroll', () => {
     state.targetScrollY = window.scrollY;
 });
 
-// Custom Interactive Cursor Loop
-const cursor = document.getElementById('custom-cursor');
-function updateCursor() {
-    state.cursorX += (state.targetCursorX - state.cursorX) * 0.15;
-    state.cursorY += (state.targetCursorY - state.cursorY) * 0.15;
-    if (cursor) {
-        cursor.style.left = `${state.cursorX}px`;
-        cursor.style.top = `${state.cursorY}px`;
-    }
-    requestAnimationFrame(updateCursor);
-}
-
 // Master Rendering draw animation cycle
 const startTime = performance.now();
 function draw(timestamp) {
@@ -101,7 +89,6 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 
     // Start coordinate calculations cycles
-    updateCursor();
     requestAnimationFrame(draw);
     
     // Reveal custom cursor and fade in unstyled elements after loading is complete (delegated to loader)

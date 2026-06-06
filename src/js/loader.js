@@ -8,12 +8,10 @@ export function initLoader(onComplete) {
     const ltxt = document.getElementById('l-text');
     const flash = document.getElementById('flash');
     const appContainer = document.getElementById('app-container');
-    const cursor = document.getElementById('custom-cursor');
 
     if (!loader || !ltxt || !flash) {
         console.warn('Loader elements not found. Skipping intro loader.');
         if (appContainer) appContainer.style.opacity = '1';
-        if (cursor) cursor.style.display = 'flex';
         if (onComplete) onComplete();
         return;
     }
@@ -67,13 +65,10 @@ export function initLoader(onComplete) {
             loader.style.transition = 'opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
             loader.style.opacity = '0';
 
-            // 4. Reveal app container and custom cursor
+            // 4. Reveal app container
             if (appContainer) {
                 appContainer.style.transition = 'opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
                 appContainer.style.opacity = '1';
-            }
-            if (cursor) {
-                cursor.style.display = 'flex';
             }
 
             setTimeout(() => {

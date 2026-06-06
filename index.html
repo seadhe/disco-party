@@ -24,9 +24,7 @@
         #app-container {
             opacity: 0;
         }
-        #custom-cursor {
-            display: none;
-        }
+
         #loader {
             position: fixed;
             inset: 0;
@@ -69,8 +67,7 @@
         <div id="l-text" aria-live="polite"></div>
     </div>
 
-    <!-- Custom Interactive Cursor -->
-    <div id="custom-cursor"></div>
+
 
     <!-- WebGL Fullscreen Background Canvas -->
     <div id="canvas-container">
@@ -325,7 +322,7 @@
                     <div class="bar-sticker c-amber hover-trigger">
                         <h3 class="bar-sticker-title">ПИВО «ДЕБАРДЁРОВ»</h3>
                         <div class="bar-sticker-meta">СВЕТЛОЕ 0.5 Л // ПОРТОВЫЙ РЕЗЕРВ</div>
-                        <p class="bar-sticker-desc">Горькое ячменное топливо. Утяжеляет кулаки.</p>
+                        <p class="bar-sticker-desc">Горькое топливо. Утяжеляет кулаки.</p>
                     </div>
 
                     <!-- ВИНО «КИНЕМОВСКОЕ» -->
@@ -488,7 +485,7 @@
                             </div>
                         </div>
                         
-                        <p class="body-mono" style="font-size: 0.9rem; margin-bottom: 0.8rem; line-height: 1.5;">Старт дали сами организаторы — 60 000 ₽ уже в банке, и первые пропуска куплены. Дальше собираем вместе. Решение о грейде — 15 июля: добираем цель Г2 — гуляем по-крупному, нет — будет Г1 на 20 человек, тоже настоящая ночь.</p>
+                        <p class="body-mono" style="font-size: 0.9rem; margin-bottom: 0.8rem; line-height: 1.5;">Старт дали сами организаторы — 60 000 ₽ уже в банке, и первые пропуска куплены. Дальше собираем вместе. Решение о грейде — 15 июля: в этот день определяем, какая версия ночи будет реализована 15 августа.</p>
                         <p class="body-mono" style="font-size: 0.9rem; line-height: 1.5; color: var(--paper-dim);">После вечеринки выложим полный финансовый отчёт.</p>
                     </div>
                     <div class="progress-right">
@@ -685,7 +682,7 @@
                         <div class="tix-price-row"><span class="tix-price">2 000</span><span class="tix-cur">₽</span></div>
                         <ul class="tix-incl">
                             <li>Вход</li>
-                            <li>600 реалов на старте (ℜ)</li>
+                            <li>10 реалов на старте</li>
                             <li>Базовая программа</li>
                         </ul>
                         <!-- Dynamic Checkout Triggers -->
@@ -698,7 +695,7 @@
                         <div class="tix-price-row"><span class="tix-price">3 000</span><span class="tix-cur">₽</span></div>
                         <ul class="tix-incl">
                             <li>Вход</li>
-                            <li>1000 реалов на старте (ℜ)</li>
+                            <li>15 реалов на старте</li>
                             <li>Ачивка-карта детектива</li>
                             <li>Газета Ревашоля №1</li>
                         </ul>
@@ -709,10 +706,10 @@
                         <div class="tix-badge vip-badge">VIP</div>
                         <h3 class="tix-name"><span style="color: var(--amber-hot); margin-right: 6px;">★</span>СУПЕРЗВЕЗДА</h3>
                         <div class="tix-tag">«Ого, суперзвезда, все хотят с тобой тусить!»</div>
-                        <div class="tix-price-row"><span class="tix-price">7 000</span><span class="tix-cur">₽</span></div>
+                        <div class="tix-price-row"><span class="tix-price">7 777</span><span class="tix-cur">₽</span></div>
                         <ul class="tix-incl">
                             <li>Вход</li>
-                            <li>2500 реалов на старте</li>
+                            <li>35 реалов на старте</li>
                             <li>Ачивка-карта суперзвезды</li>
                             <li>Газета Ревашоля №1</li>
                             <li>Стартовый набор в баре</li>
@@ -722,7 +719,31 @@
                         </ul>
                         <a class="tix-btn" href="https://t.me/Inland_Imperialist?text=%D0%A5%D0%BE%D1%87%D1%83%20%D0%BF%D1%80%D0%BE%D0%BF%D1%83%D1%81%D0%BA%20%C2%AB%D0%A1%D1%83%D0%BF%D0%B5%D1%80%D0%B7%D0%B2%D0%B5%D0%B7%D0%B4%D0%B0%C2%BB%20%D0%BD%D0%B0%20Disco%20Elysium%20Party" target="_blank" rel="noopener">Запросить пропуск</a>
                     </div>
+
+                    <!-- LEGEND TICKET -->
+                    <div class="tix tix-legend">
+                        <div class="legend-badge">1 ЭКЗЕМПЛЯР</div>
+                        <h3 class="tix-name">ЛЕГЕНДА</h3>
+                        <div class="tix-tag" style="font-family: 'Fraunces', serif; font-style: italic; color: var(--text-dim);">«Один на всю ночь»</div>
+                        
+                        <ul class="tix-incl">
+                            <li>Вход</li>
+                            <li>X реалов на старте</li>
+                            <li>Ачивка-карта легенды</li>
+                            <li>Газета Ревашоля №1</li>
+                            <li>Стартовый набор в баре</li>
+                            <li>Плакат с твоим лицом в декорациях</li>
+                            <li>Приоритетное внимание</li>
+                            <li>Высокий X-Factor</li>
+                            <li style="color: var(--cyan); text-shadow: 0 0 10px rgba(31,230,230,0.3);">Уникальные секретные бонусы</li>
+                        </ul>
+                        
+                        <div class="tix-legend-btn-placeholder">
+                            Подробности в Telegram-канале
+                        </div>
+                    </div>
                 </div>
+
             </section>
 
             <!-- ============ 8. FAQ SECTION (NEW) ============ -->
@@ -740,19 +761,13 @@
                         </div>
                     </details>
 
-                    <!-- Question 2 -->
-                    <details class="dossier-box hover-trigger" style="border-top: none; border-left: 2px solid var(--cyan-hot); padding: 0; margin-bottom: 1rem;">
-                        <summary>Можно ли привести +1/друга?</summary>
-                        <div class="faq-content">
-                            Да, но по согласованию. Ваш +1 должен также запросить пропуск. К сожалению, организаторы не могут гарантировать, что заявка будет одобрена, поскольку есть ограничение по числу людей, исходящее из логики активностей и общего контекста ивента.
-                        </div>
-                    </details>
+
 
                     <!-- Question 3 -->
                     <details class="dossier-box hover-trigger" style="border-top: none; border-left: 2px solid var(--cyan-hot); padding: 0; margin-bottom: 1rem;">
                         <summary>Можно не пить алкоголь?</summary>
                         <div class="faq-content">
-                            Разумеется. В баре Ревашоля есть лимонады, соки и прохладительные напитки. Вся квестовая и сюжетная механика отлично проходится на трезвую и ясную голову.
+                            Мы не будем против. В баре Ревашоля есть лимонады, соки и прохладительные напитки. Вся квестовая и сюжетная механика отлично проходится на трезвую и ясную голову.
                         </div>
                     </details>
 

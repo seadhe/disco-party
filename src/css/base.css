@@ -76,37 +76,7 @@ canvas {
     height: 100%;
 }
 
-/* Custom Interactive Cursor */
-#custom-cursor {
-    width: 32px;
-    height: 32px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    position: fixed;
-    pointer-events: none;
-    transform: translate(-50%, -50%);
-    z-index: 9999;
-    transition: width 0.2s, height 0.2s, background-color 0.2s, border-color 0.2s;
-    mix-blend-mode: difference;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
 
-#custom-cursor::after {
-    content: '';
-    width: 4px;
-    height: 4px;
-    background-color: #fff;
-    border-radius: 50%;
-}
-
-.cursor-hover #custom-cursor {
-    width: 56px;
-    height: 56px;
-    background-color: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.8);
-}
 
 /* Navigation Header - Fixed Centering */
 header {
@@ -408,6 +378,17 @@ h1, h2, h3, .logo-title, .arch-name, .tix-name, .tname, .footer-title, .modal-ti
     flex-shrink: 0;
     width: 18px;
     height: 18px;
+}
+
+@media (max-width: 480px) {
+    .footer-cta-btn {
+        font-size: 11px;
+        padding: 1.2rem 1.2rem;
+        white-space: normal;
+        text-align: center;
+        letter-spacing: 0.08em;
+        line-height: 1.4;
+    }
 }
 
 @keyframes footerPulseGlow {
