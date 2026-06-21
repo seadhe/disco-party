@@ -302,10 +302,10 @@ function animateProgressFill(targetPercent, collectedVal) {
 
 export function initBudget() {
     const fallbackData = {
-        "collected": 77000,
-        "buyers": 3,
+        "collected": 84554,
+        "buyers": 5,
         "deadline": "2026-07-15",
-        "updated": "2026-06-06",
+        "updated": "2026-06-21",
         "goalG1": 127500,
         "goalG2": 238400,
         "orgStart": 60000
