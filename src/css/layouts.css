@@ -91,6 +91,23 @@
     align-items: center;
     margin: 1.2rem auto 1.8rem auto;
     width: 100%;
+    position: relative;
+}
+
+.hero-title.cancelled::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 5%;
+    right: 5%;
+    height: 12px;
+    background: var(--magenta-hot);
+    transform: rotate(-6deg) translateY(-50%);
+    box-shadow: 0 0 25px var(--magenta-hot), 0 0 10px var(--magenta);
+    z-index: 20;
+    border-radius: 8px;
+    mix-blend-mode: screen;
+    pointer-events: none;
 }
 
 .hero-logo-tilt {
@@ -240,6 +257,20 @@
     letter-spacing: 0.03em;
     text-shadow: 0 0 10px rgba(244, 236, 220, 0.35), 0 0 22px rgba(108, 245, 245, 0.25), 0 0 35px rgba(255, 31, 143, 0.2);
     white-space: nowrap;
+}
+
+.hero-meta-date.cancelled-event .date-value {
+    color: var(--magenta-hot);
+    font-size: 2.8rem;
+    text-shadow: 0 0 15px rgba(255, 31, 143, 0.6), 0 0 30px rgba(255, 31, 143, 0.4);
+    letter-spacing: 0.05em;
+    white-space: normal;
+    text-transform: uppercase;
+}
+
+.hero-meta-date.cancelled-event .date-value::before,
+.hero-meta-date.cancelled-event .date-value::after {
+    display: none;
 }
 
 .hero-meta-date .date-value::before,
